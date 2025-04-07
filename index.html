@@ -1,0 +1,772 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tic-Tac-Toe Game</title>
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+    <script src="https://cdn.jsdelivr.net/npm/lucide-static@latest/font/Lucide.ttf"></script>
+    <style>
+        /* Import Lucide font */
+        @font-face {
+          font-family: 'LucideIcons';
+          src: url('https://cdn.jsdelivr.net/npm/lucide-static@latest/font/Lucide.ttf') format('truetype');
+        }
+
+        /* Global Variables & Themes (Mostly unchanged) */
+        :root {
+            --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            --font-icons: 'LucideIcons';
+            --transition-speed: 0.3s;
+
+            /* Light Theme (Default) */
+            --bg-color: #f0f0f0;
+            --text-color: #333;
+            --board-bg: #fff;
+            --cell-bg: #fff;
+            --cell-border: #ccc;
+            --cell-hover-bg: #e9e9e9;
+            --button-bg: #e0e0e0;
+            --button-text-color: #333;
+            --button-hover-bg: #d0d0d0;
+            --score-bg: #e0e0e0;
+            --x-color: #3498db; /* Blue */
+            --o-color: #e74c3c; /* Red */
+            --win-line-color: #2ecc71; /* Green */
+            --icon-color: #555;
+            --shadow-color: rgba(0, 0, 0, 0.1);
+            --board-gap: 0px;
+            --cell-radius: 8px;
+            --x-weight: bold;
+            --o-weight: bold;
+            --o-border-width: 0px;
+            --score-box-p1-bg: transparent;
+            --score-box-ties-bg: transparent;
+            --score-box-p2-bg: transparent;
+            --score-box-p1-text: var(--text-color);
+            --score-box-ties-text: var(--text-color);
+            --score-box-p2-text: var(--text-color);
+            --score-box-radius: 10px;
+            --score-padding: 15px 0;
+            --top-bar-bg: transparent;
+            --theme-btn-light-bg: #ffffff;
+            --theme-btn-dark-bg: #2c3e50;
+            --theme-btn-deluxe-bg: #14b8a6;
+            --theme-btn-udeluxe-bg: #34495e;
+            --theme-btn-text: var(--text-color);
+            /* Signup Specific */
+            --signup-left-bg: #1e3a8a; /* Dark Blue */
+            --signup-right-bg: #ffffff;
+            --signup-input-border: #d1d5db;
+            --signup-input-focus-border: #4f46e5; /* Indigo */
+            --signup-button-bg: #4f46e5; /* Indigo */
+            --signup-button-hover-bg: #6366f1;
+            --guest-button-bg: transparent;
+            --guest-button-text: var(--signup-button-bg);
+            --guest-button-border: var(--signup-button-bg);
+            --guest-button-hover-bg: rgba(79, 70, 229, 0.1);
+            --error-color: #dc2626; /* Red */
+            --success-color: #16a34a; /* Green */
+        }
+
+        [data-theme="dark"] {
+            --bg-color: #2c3e50;
+            --text-color: #ecf0f1;
+            --board-bg: #34495e;
+            --cell-bg: #34495e;
+            --cell-border: #4a6178;
+            --cell-hover-bg: #41566b;
+            --button-bg: #4a6178;
+            --button-text-color: #ecf0f1;
+            --button-hover-bg: #5d7a99;
+            --score-bg: #34495e;
+            --x-color: #5dade2;
+            --o-color: #f1948a;
+            --win-line-color: #58d68d;
+            --icon-color: #bdc3c7;
+            --shadow-color: rgba(0, 0, 0, 0.3);
+            --cell-radius: 8px;
+            --score-box-p1-text: var(--text-color);
+            --score-box-ties-text: var(--text-color);
+            --score-box-p2-text: var(--text-color);
+            --theme-btn-text: #ecf0f1;
+             /* Signup Specific */
+            --signup-right-bg: #1f2937; /* Dark Grey for right panel */
+            --signup-input-border: #4b5563;
+            --signup-input-focus-border: #818cf8; /* Lighter Indigo */
+            --guest-button-text: #818cf8;
+            --guest-button-border: #818cf8;
+            --guest-button-hover-bg: rgba(129, 140, 248, 0.1);
+        }
+
+        [data-theme="deluxe"] {
+            --bg-color: #14b8a6;
+            --text-color: #ffffff;
+            --board-bg: #14b8a6;
+            --cell-bg: #0f766e;
+            --cell-border: transparent;
+            --cell-hover-bg: #115e59;
+            --button-bg: #0d9488;
+            --button-text-color: #ffffff;
+            --button-hover-bg: #0f766e;
+            --score-bg: transparent;
+            --x-color: #ffffff;
+            --o-color: #ffffff;
+            --win-line-color: #ffffff;
+            --icon-color: #ffffff;
+            --shadow-color: rgba(0, 0, 0, 0.2);
+            --board-gap: 8px;
+            --cell-radius: 10px;
+            --x-weight: lighter;
+            --o-weight: lighter;
+            --score-box-p1-bg: transparent;
+            --score-box-ties-bg: transparent;
+            --score-box-p2-bg: transparent;
+            --score-box-radius: 0px;
+            --score-padding: 0;
+            --theme-btn-text: #ffffff;
+            /* Signup Specific */
+            --signup-left-bg: #0f766e; /* Darker Teal */
+            --signup-right-bg: #f0fdfa; /* Very Light Mint */
+            --signup-input-border: #5eead4;
+            --signup-input-focus-border: #14b8a6;
+            --signup-button-bg: #0d9488;
+            --signup-button-hover-bg: #0f766e;
+            --guest-button-text: var(--signup-button-bg);
+            --guest-button-border: var(--signup-button-bg);
+            --guest-button-hover-bg: rgba(13, 148, 136, 0.1);
+        }
+
+        [data-theme="u-deluxe"] {
+            --bg-color: #2c3e50;
+            --text-color: #ecf0f1;
+            --board-bg: #2c3e50;
+            --cell-bg: #34495e;
+            --cell-border: transparent;
+            --cell-hover-bg: #4a6178;
+            --button-bg: #34495e;
+            --button-text-color: #ecf0f1;
+            --button-hover-bg: #4a6178;
+            --score-bg: transparent;
+            --x-color: #48c9b0;
+            --o-color: #f1c40f;
+            --win-line-color: #e74c3c;
+            --icon-color: #bdc3c7;
+            --shadow-color: rgba(0, 0, 0, 0.4);
+            --board-gap: 10px;
+            --cell-radius: 12px;
+            --x-weight: bold;
+            --o-weight: bold;
+            --o-border-width: 8px;
+            --score-box-p1-bg: #48c9b0;
+            --score-box-ties-bg: #bdc3c7;
+            --score-box-p2-bg: #f1c40f;
+            --score-box-p1-text: #ffffff;
+            --score-box-ties-text: #2c3e50;
+            --score-box-p2-text: #2c3e50;
+            --score-box-radius: 8px;
+            --score-padding: 0;
+            --top-bar-bg: var(--button-bg);
+            --theme-btn-text: #ecf0f1;
+            /* Signup Specific */
+             --signup-left-bg: #1f2937; /* Dark Grey */
+             --signup-right-bg: #374151; /* Lighter Dark Grey */
+             --signup-input-border: #4b5563;
+             --signup-input-focus-border: #48c9b0; /* Teal */
+             --signup-button-bg: #48c9b0; /* Teal */
+             --signup-button-hover-bg: #5eead4;
+             --guest-button-text: var(--signup-button-bg);
+             --guest-button-border: var(--signup-button-bg);
+             --guest-button-hover-bg: rgba(72, 201, 176, 0.1);
+        }
+
+        /* Base Styles */
+        *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+        html, body { height: 100%; overflow: hidden; }
+        body {
+            font-family: var(--font-main);
+            background-color: var(--bg-color);
+            color: var(--text-color);
+            display: flex;
+            transition: background-color var(--transition-speed) ease, color var(--transition-speed) ease;
+        }
+
+        /* Screen Styling */
+        .screen {
+            width: 100%; height: 100%; display: flex; flex-direction: column;
+            align-items: center; justify-content: center; padding: 20px;
+            overflow-y: auto; position: absolute; top: 0; left: 0;
+            opacity: 1; visibility: visible;
+            transition: opacity var(--transition-speed) ease, visibility var(--transition-speed) ease;
+        }
+        .screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
+
+        /* --- Homepage Styles (Unchanged) --- */
+        #home-screen { background-color: #4f46e5; color: #ffffff; justify-content: space-around; text-align: center; }
+        .home-title { font-size: clamp(3em, 15vmin, 6em); font-weight: bold; line-height: 1; margin-bottom: 10px; animation: fadeInDown 0.8s ease forwards; }
+        .home-title span { display: block; }
+        .home-graphic { width: min(60vw, 250px); height: min(60vw, 250px); background-color: #ffffff; border-radius: 50% 50% 45% 55% / 60% 55% 45% 40%; display: flex; flex-direction: column; align-items: center; justify-content: center; color: #4f46e5; font-size: clamp(3em, 18vmin, 7em); font-weight: bold; position: relative; animation: zoomIn 0.8s 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; opacity: 0; transform: scale(0.8); box-shadow: 0 10px 30px rgba(0,0,0,0.2); }
+        .home-graphic .xo { line-height: 1; } .home-graphic .xo .o { margin-left: -0.1em; }
+        .home-graphic::after { content: ')'; position: absolute; bottom: 15%; font-size: 0.3em; transform: rotate(90deg); opacity: 0.7; }
+        #play-button { padding: 15px 40px; font-size: 1.2em; font-weight: bold; background-color: #6366f1; color: #ffffff; border: none; border-radius: 30px; cursor: pointer; transition: background-color var(--transition-speed) ease, transform 0.2s ease; box-shadow: 0 5px 15px rgba(0,0,0,0.2); animation: fadeInUp 0.8s 0.6s ease forwards; opacity: 0; }
+        #play-button:hover { background-color: #818cf8; transform: translateY(-3px); }
+        #play-button:active { transform: translateY(0); }
+
+        /* --- Signup Screen Styles --- */
+        #signup-screen {
+            justify-content: flex-start; /* Align content to top */
+            padding: 0; /* Remove padding for full screen columns */
+            flex-direction: row; /* Side-by-side columns */
+        }
+
+        .signup-column {
+            height: 100%;
+            padding: 40px;
+            overflow-y: auto;
+        }
+
+        .signup-left {
+            flex-basis: 40%; /* Adjust width ratio */
+            background-color: var(--signup-left-bg);
+            color: #ffffff;
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center content vertically */
+        }
+        .signup-left h2 { font-size: 2.5em; margin-bottom: 15px; }
+        .signup-left p { font-size: 1.1em; opacity: 0.8; line-height: 1.6; }
+
+        .signup-right {
+            flex-basis: 60%;
+            background-color: var(--signup-right-bg);
+            color: var(--text-color); /* Use theme text color */
+            display: flex;
+            flex-direction: column;
+            justify-content: center; /* Center form vertically */
+        }
+
+        .signup-header { text-align: right; margin-bottom: 30px; }
+        .signup-header a { color: var(--signup-button-bg); text-decoration: none; font-weight: 500; }
+        .signup-header a:hover { text-decoration: underline; }
+
+        .signup-form-container { max-width: 400px; width: 100%; margin: 0 auto; }
+        .signup-form-container h2 { font-size: 2em; margin-bottom: 10px; color: var(--text-color); }
+        .signup-form-container p { margin-bottom: 30px; opacity: 0.7; }
+
+        #signup-form label {
+            display: block;
+            font-weight: 500;
+            margin-bottom: 5px;
+            font-size: 0.9em;
+            color: var(--text-color);
+        }
+        #signup-form input[type="email"],
+        #signup-form input[type="password"] {
+            width: 100%;
+            padding: 12px 15px;
+            margin-bottom: 20px;
+            border: 1px solid var(--signup-input-border);
+            border-radius: 8px;
+            font-size: 1em;
+            background-color: var(--cell-bg); /* Use cell bg for consistency */
+            color: var(--text-color);
+            transition: border-color var(--transition-speed) ease;
+        }
+        #signup-form input:focus {
+            outline: none;
+            border-color: var(--signup-input-focus-border);
+            box-shadow: 0 0 0 2px var(--signup-input-focus-border-alpha, rgba(79, 70, 229, 0.2)); /* Use alpha version */
+        }
+         /* Update focus shadow color based on theme */
+         :root { --signup-input-focus-border-alpha: rgba(79, 70, 229, 0.2); }
+         [data-theme="dark"] { --signup-input-focus-border-alpha: rgba(129, 140, 248, 0.3); }
+         [data-theme="deluxe"] { --signup-input-focus-border-alpha: rgba(20, 184, 166, 0.3); }
+         [data-theme="u-deluxe"] { --signup-input-focus-border-alpha: rgba(72, 201, 176, 0.3); }
+
+
+        .password-criteria {
+            font-size: 0.8em;
+            color: var(--text-color);
+            opacity: 0.7;
+            margin-top: -10px;
+            margin-bottom: 20px;
+            display: grid; /* Use grid for checklist */
+            grid-template-columns: 1fr 1fr;
+            gap: 5px;
+        }
+        .password-criteria span { display: flex; align-items: center; }
+
+        #signup-button, #guest-play-button { /* Style both buttons */
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1em;
+            font-weight: bold;
+            border-radius: 8px;
+            cursor: pointer;
+            transition: background-color var(--transition-speed) ease, transform 0.2s ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
+            margin-top: 10px;
+            text-align: center; /* Ensure text is centered */
+        }
+
+        #signup-button {
+            background-color: var(--signup-button-bg);
+            color: #ffffff;
+            border: none;
+        }
+        #signup-button:hover { background-color: var(--signup-button-hover-bg); transform: translateY(-2px); }
+        #signup-button:disabled { background-color: gray; cursor: not-allowed; }
+
+        /* Style for the guest button */
+        #guest-play-button {
+            background-color: var(--guest-button-bg);
+            color: var(--guest-button-text);
+            border: 2px solid var(--guest-button-border);
+        }
+        #guest-play-button:hover {
+            background-color: var(--guest-button-hover-bg);
+            transform: translateY(-2px);
+        }
+
+
+        .signup-footer { text-align: center; font-size: 0.8em; opacity: 0.6; margin-top: 20px; }
+        .signup-footer a { color: var(--text-color); }
+
+        #signup-message {
+            margin-top: 15px;
+            padding: 10px;
+            border-radius: 6px;
+            font-weight: 500;
+            display: none; /* Hidden by default */
+        }
+        #signup-message.error { background-color: var(--error-color); color: white; display: block; }
+        #signup-message.success { background-color: var(--success-color); color: white; display: block; }
+
+        /* --- Game Screen Styles (Mostly Unchanged) --- */
+        #game-screen { justify-content: space-between; }
+        .icon { font-family: var(--font-icons); font-size: 1.3em; line-height: 1; display: inline-block; color: var(--icon-color); transition: transform var(--transition-speed) ease, color var(--transition-speed) ease; vertical-align: middle; }
+        button .icon { margin-right: 5px; } button.icon-only .icon { margin-right: 0; } button:hover .icon { transform: scale(1.1) rotate(5deg); }
+        .container { width: 100%; max-width: 500px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .top-bar { display: none; width: 100%; justify-content: space-between; align-items: center; padding: 10px 15px; border-radius: 10px; margin-bottom: 10px; background-color: var(--top-bar-bg); box-shadow: 0 4px 10px var(--shadow-color); animation: slideInDown 0.5s ease forwards; }
+        [data-theme="u-deluxe"] .top-bar { display: flex; }
+        .logo { font-size: 1.8em; font-weight: bold; } .logo .x { color: var(--x-color); } .logo .o { color: var(--o-color); }
+        .turn-indicator { display: flex; align-items: center; gap: 8px; background-color: rgba(0,0,0,0.1); padding: 8px 15px; border-radius: 8px; font-weight: bold; transition: background-color var(--transition-speed) ease; }
+        .turn-indicator .text { animation: pulse 1.5s infinite ease-in-out; }
+        [data-theme="u-deluxe"] .status#status, [data-theme="u-deluxe"] #reset-button.main-reset { display: none; }
+        .top-bar #reset-button { padding: 10px; box-shadow: none; background-color: transparent; } .top-bar #reset-button:hover { background-color: rgba(255, 255, 255, 0.1); }
+        h1 { margin-bottom: 10px; font-size: 2.5em; font-weight: bold; animation: fadeInDown 0.5s ease forwards; text-align: center; }
+        [data-theme="deluxe"] h1, [data-theme="u-deluxe"] h1 { display: none; }
+        .settings { display: flex; justify-content: center; align-items: center; flex-wrap: wrap; gap: 10px 15px; margin-bottom: 15px; animation: fadeInUp 0.5s 0.2s ease forwards; opacity: 0; width: 100%; }
+        .setting-group { display: flex; flex-direction: column; align-items: center; gap: 5px; }
+        .setting-group.theme-buttons { width: 100%; flex-direction: row; justify-content: center; gap: 8px; }
+        label { font-weight: bold; font-size: 0.9em; opacity: 0.8; }
+        select, button:not(#signup-button):not(#guest-play-button):not(#play-button) { /* Exclude signup/guest/play buttons */
+             padding: 8px 12px; border-radius: 8px; border: none; background-color: var(--button-bg); color: var(--button-text-color); font-family: var(--font-main); font-size: 0.9em; cursor: pointer; transition: background-color var(--transition-speed) ease, transform 0.2s ease, box-shadow var(--transition-speed) ease; box-shadow: 0 3px 6px var(--shadow-color);
+        }
+        select { appearance: none; padding-right: 25px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23${(props) => props.theme.iconColor.substring(1)}' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; background-size: 12px 12px; }
+        select:focus, button:not(#signup-button):not(#guest-play-button):not(#play-button):focus { outline: 2px solid var(--x-color); outline-offset: 2px; }
+        button:not(#signup-button):not(#guest-play-button):not(#play-button):hover { background-color: var(--button-hover-bg); transform: translateY(-2px) scale(1.02); box-shadow: 0 5px 10px var(--shadow-color); }
+        button:not(#signup-button):not(#guest-play-button):not(#play-button):active { transform: translateY(0) scale(0.98); box-shadow: 0 2px 4px var(--shadow-color); }
+        .theme-buttons button { padding: 8px 18px; font-size: 0.85em; font-weight: bold; line-height: 1; border-radius: 999px; border: 2px solid rgba(0,0,0,0.1); color: var(--theme-btn-text); }
+        #light-theme-btn { background-color: var(--theme-btn-light-bg); border-color: #ccc; color: #333; }
+        #dark-theme-btn { background-color: var(--theme-btn-dark-bg); } #deluxe-theme-btn { background-color: var(--theme-btn-deluxe-bg); } #u-deluxe-theme-btn { background-color: var(--theme-btn-udeluxe-bg); }
+        .theme-buttons button:hover { filter: brightness(1.1); }
+        .theme-buttons button.active { outline: 3px solid var(--win-line-color); outline-offset: 1px; box-shadow: 0 0 10px var(--win-line-color); }
+        .board { display: grid; grid-template-columns: repeat(3, 1fr); grid-template-rows: repeat(3, 1fr); width: min(80vw, 350px); height: min(80vw, 350px); margin: 5px auto; background-color: var(--board-bg); border-radius: 10px; position: relative; overflow: hidden; animation: zoomIn 0.6s 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; opacity: 0; transform: scale(0.8); gap: var(--board-gap); padding: var(--board-gap); border: 1px solid var(--cell-border); }
+        :root:not([data-theme="deluxe"]):not([data-theme="u-deluxe"]) .board { padding: 0; border: none; }
+        .cell { width: 100%; height: 100%; border: 1px solid var(--cell-border); display: flex; align-items: center; justify-content: center; font-size: clamp(2em, 10vmin, 4.5em); font-weight: bold; cursor: pointer; transition: background-color var(--transition-speed) ease, transform 0.2s ease; position: relative; background-color: var(--cell-bg); color: transparent; border-radius: var(--cell-radius); overflow: hidden; }
+        :root:not([data-theme="deluxe"]):not([data-theme="u-deluxe"]) .cell:nth-child(3n) { border-right: none; } :root:not([data-theme="deluxe"]):not([data-theme="u-deluxe"]) .cell:nth-child(1), :root:not([data-theme="deluxe"]):not([data-theme="u-deluxe"]) .cell:nth-child(2), :root:not([data-theme="deluxe"]):not([data-theme="u-deluxe"]) .cell:nth-child(3) { border-top: none; } :root:not([data-theme="deluxe"]):not([data-theme="u-deluxe"]) .cell:nth-child(7), :root:not([data-theme="deluxe"]):not([data-theme="u-deluxe"]) .cell:nth-child(8), :root:not([data-theme="deluxe"]):not([data-theme="u-deluxe"]) .cell:nth-child(9) { border-bottom: none; } :root:not([data-theme="deluxe"]):not([data-theme="u-deluxe"]) .cell:nth-child(1), :root:not([data-theme="deluxe"]):not([data-theme="u-deluxe"]) .cell:nth-child(4), :root:not([data-theme="deluxe"]):not([data-theme="u-deluxe"]) .cell:nth-child(7) { border-left: none; }
+        [data-theme="deluxe"] .cell, [data-theme="u-deluxe"] .cell { border: none; }
+        .cell:not(.occupied):hover { background-color: var(--cell-hover-bg); transform: scale(1.05); z-index: 1; box-shadow: 0 0 15px rgba(0,0,0,0.1); }
+        .cell.occupied { cursor: not-allowed; transform: scale(1); } .cell.occupied:hover { box-shadow: none; }
+        .cell.x::before, .cell.o::before { position: absolute; display: flex; align-items: center; justify-content: center; width: 70%; height: 70%; animation: symbolAppear 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); line-height: 1; }
+        .cell.x::before { content: 'X'; color: var(--x-color); font-weight: var(--x-weight); }
+        .cell.o::before { content: ''; color: var(--o-color); font-weight: var(--o-weight); border: var(--o-border-width) solid var(--o-color); border-radius: 50%; box-sizing: border-box; }
+        :root:not([data-theme="u-deluxe"]) .cell.o::before { content: 'O'; border: none; }
+        .win-line { position: absolute; background-color: var(--win-line-color); height: 8px; border-radius: 4px; transform-origin: 0 50%; animation: drawLine 0.6s ease-out forwards; display: none; z-index: 2; box-shadow: 0 0 10px var(--win-line-color); pointer-events: none; }
+        .scoreboard { display: flex; justify-content: space-around; width: 100%; max-width: 450px; margin-top: 10px; padding: var(--score-padding); background-color: var(--score-bg); border-radius: var(--score-box-radius); box-shadow: 0 -4px 10px var(--shadow-color); transition: background-color var(--transition-speed) ease, box-shadow var(--transition-speed) ease; animation: fadeInUp 0.5s 0.6s ease forwards; opacity: 0; gap: 10px; }
+        .score { text-align: center; padding: 10px; border-radius: var(--score-box-radius); flex: 1; transition: background-color var(--transition-speed) ease, transform 0.2s ease; animation: scoreAppear 0.3s ease forwards; opacity: 0; animation-delay: calc(var(--index) * 0.1s + 0.7s); }
+        .score:nth-child(1) { background-color: var(--score-box-p1-bg); color: var(--score-box-p1-text); --index: 0; } .score:nth-child(2) { background-color: var(--score-box-ties-bg); color: var(--score-box-ties-text); --index: 1; } .score:nth-child(3) { background-color: var(--score-box-p2-bg); color: var(--score-box-p2-text); --index: 2; }
+        .score p { font-size: 0.85em; font-weight: bold; opacity: 0.9; margin-bottom: 3px; } .score span { display: block; font-size: 1.6em; font-weight: bold; } .score.updated span { animation: scoreUpdate 0.5s ease; }
+        .status { margin-top: 10px; font-size: 1.2em; font-weight: bold; min-height: 1.5em; animation: fadeIn 0.5s ease; text-align: center; }
+        #reset-button.main-reset { margin-top: 10px; padding: 10px 20px; font-size: 1em; font-weight: bold; animation: fadeInUp 0.5s 0.8s ease forwards; opacity: 0; }
+
+        /* Animations */
+        @keyframes fadeInDown { from { opacity: 0; transform: translateY(-30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes slideInDown { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes fadeInUp { from { opacity: 0; transform: translateY(30px); } to { opacity: 1; transform: translateY(0); } }
+        @keyframes zoomIn { from { opacity: 0; transform: scale(0.8); } to { opacity: 1; transform: scale(1); } }
+        @keyframes fadeIn { from { opacity: 0; } to { opacity: 1; } }
+        @keyframes symbolAppear { from { opacity: 0; transform: scale(0.3) rotate(-90deg); } to { opacity: 1; transform: scale(1) rotate(0deg); } }
+        @keyframes drawLine { from { transform: scaleX(0); } to { transform: scaleX(1); } }
+        @keyframes pulse { 0%, 100% { transform: scale(1); opacity: 1; } 50% { transform: scale(1.05); opacity: 0.8; } }
+        @keyframes scoreAppear { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0px); } }
+        @keyframes scoreUpdate { 0% { transform: scale(1); } 50% { transform: scale(1.2); color: var(--win-line-color); } 100% { transform: scale(1); } }
+
+        /* Media Queries */
+        @media (max-width: 768px) { /* Tablet breakpoint */
+             #signup-screen { flex-direction: column; } /* Stack columns */
+             .signup-left, .signup-right { flex-basis: auto; height: auto; min-height: 50vh; } /* Adjust height */
+             .signup-left { justify-content: flex-start; padding-top: 60px; text-align: center;} /* Adjust padding */
+             .signup-right { justify-content: flex-start; padding-top: 40px; }
+        }
+        @media (max-width: 600px) {
+            h1 { font-size: 2em; } .container { gap: 10px; } .settings { margin-bottom: 10px; }
+            .board { width: min(85vw, 300px); height: min(85vw, 300px); }
+            .scoreboard { flex-direction: row; gap: 5px; padding: 5px; max-width: 90%; }
+            .score { padding: 8px 5px; } .score p { font-size: 0.75em; } .score span { font-size: 1.4em; }
+            .status { font-size: 1.1em; } .top-bar { padding: 8px 10px; } .logo { font-size: 1.5em; }
+            .turn-indicator { padding: 6px 10px; font-size: 0.9em; } .theme-buttons button { padding: 6px 12px; font-size: 0.8em; }
+        }
+         @media (max-width: 400px) {
+             body { padding: 0; } /* Remove body padding for edge-to-edge */
+             .screen { padding: 15px; } /* Add padding back to screens */
+             #signup-screen { padding: 0; } /* No padding on signup screen itself */
+             .signup-column { padding: 25px; } /* Padding within columns */
+             .signup-left h2 { font-size: 2em; } .signup-left p { font-size: 1em; }
+             .signup-form-container h2 { font-size: 1.8em; }
+             .board { width: min(90vw, 260px); height: min(90vw, 260px); }
+             .cell { font-size: clamp(1.8em, 9vmin, 3.5em); }
+             [data-theme="u-deluxe"] .cell.o::before { --o-border-width: 5px; }
+             .scoreboard { max-width: 95%; } .score span { font-size: 1.2em; }
+             .top-bar { flex-wrap: wrap; justify-content: center; gap: 5px;} .logo { display: none; }
+             .settings { gap: 8px; } .theme-buttons button { padding: 5px 10px; font-size: 0.75em; }
+             select, button:not(#signup-button):not(#guest-play-button):not(#play-button) { padding: 6px 10px; font-size: 0.85em; } /* Exclude signup/guest/play */
+         }
+
+    </style>
+</head>
+<body> <div id="home-screen" class="screen">
+        <div class="home-title">
+            <span>Tic</span>
+            <span>Tac</span>
+            <span>Toe</span>
+        </div>
+        <div class="home-graphic">
+            <span class="xo">X<span class="o">O</span></span>
+        </div>
+        <button id="play-button">Play</button>
+    </div>
+
+    <div id="signup-screen" class="screen hidden">
+        <div class="signup-column signup-left">
+            <h2>Sign Up & Play!</h2>
+            <p>Create a free account to track your scores and challenge opponents.</p>
+        </div>
+        <div class="signup-column signup-right">
+            <div class="signup-header">
+                <p>Already have an account? <a href="#">Log in</a></p> </div>
+            <div class="signup-form-container">
+                <h2>Welcome to Tic-Tac-Toe 👋</h2>
+                <p>Enter your details below to get started.</p>
+
+                <form id="signup-form">
+                    <div>
+                        <label for="signup-email">Email</label>
+                        <input type="email" id="signup-email" name="email" required placeholder="you@example.com">
+                    </div>
+                    <div>
+                        <label for="signup-password">Password</label>
+                        <input type="password" id="signup-password" name="password" required placeholder="••••••••">
+                    </div>
+                    <div class="password-criteria">
+                        <span>✔ Lowercase characters</span>
+                        <span>✔ Uppercase characters</span>
+                        <span>✔ Numbers</span>
+                        <span>✔ 8+ characters minimum</span>
+                    </div>
+
+                    <div id="signup-message"></div>
+
+                    <button type="submit" id="signup-button">Create Account</button>
+                    <button type="button" id="guest-play-button">Continue without Signup</button>
+                </form>
+
+                <div class="signup-footer">
+                    By signing up, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="game-screen" class="screen hidden">
+         <div class="container">
+             <div class="top-bar">
+                <div class="logo"><span class="x">X</span><span class="o">O</span></div>
+                <div class="turn-indicator" id="turn-indicator"><span class="text"></span></div>
+                <button id="reset-button" class="icon-only" title="Reset Game"><span class="icon" data-lucide="rotate-cw"></span></button>
+            </div>
+            <h1>Tic-Tac-Toe</h1>
+            <div class="board" id="board">
+                <div class="win-line" id="win-line"></div>
+            </div>
+            <div class="settings">
+                 <div class="setting-group theme-buttons">
+                    <button id="light-theme-btn" data-theme="light">Light</button>
+                    <button id="dark-theme-btn" data-theme="dark">Dark</button>
+                    <button id="deluxe-theme-btn" data-theme="deluxe">Deluxe</button>
+                    <button id="u-deluxe-theme-btn" data-theme="u-deluxe">U-Deluxe</button>
+                </div>
+                <div class="setting-group">
+                    <label for="game-mode">Mode:</label>
+                    <select id="game-mode"> <option value="ai">Player vs AI</option> <option value="1v1">Player vs Player</option> </select>
+                </div>
+                <div class="setting-group" id="difficulty-group">
+                    <label for="difficulty">Difficulty:</label>
+                    <select id="difficulty"> <option value="easy">Easy</option> <option value="medium">Medium</option> <option value="hard">Hard</option> </select>
+                </div>
+            </div>
+            <div class="status" id="status">Player X's Turn</div>
+            <button id="reset-button" class="main-reset"><span class="icon" data-lucide="rotate-cw"></span> Reset Game</button>
+        </div>
+        <div class="scoreboard">
+            <div class="score"> <p id="player1-label">X (YOU)</p> <span id="player1-score">0</span> </div>
+            <div class="score"> <p>Ties</p> <span id="ties-score">0</span> </div>
+            <div class="score"> <p id="player2-label">O (CPU)</p> <span id="player2-score">0</span> </div>
+        </div>
+    </div>
+
+    <script>
+        // --- DOM Elements ---
+        const homeScreen = document.getElementById('home-screen');
+        const signupScreen = document.getElementById('signup-screen');
+        const gameScreen = document.getElementById('game-screen');
+        const playButton = document.getElementById('play-button');
+        const signupForm = document.getElementById('signup-form');
+        const signupEmailInput = document.getElementById('signup-email');
+        const signupPasswordInput = document.getElementById('signup-password');
+        const signupButton = document.getElementById('signup-button');
+        const guestPlayButton = document.getElementById('guest-play-button'); // New button
+        const signupMessageElement = document.getElementById('signup-message');
+        // --- Game Screen Elements ---
+        const boardElement = document.getElementById('board');
+        const statusElement = document.getElementById('status');
+        const turnIndicatorElement = document.getElementById('turn-indicator');
+        const turnIndicatorText = turnIndicatorElement.querySelector('.text');
+        const player1ScoreElement = document.getElementById('player1-score');
+        const tiesScoreElement = document.getElementById('ties-score');
+        const player2ScoreElement = document.getElementById('player2-score');
+        const player1LabelElement = document.getElementById('player1-label');
+        const player2LabelElement = document.getElementById('player2-label');
+        const resetButtons = document.querySelectorAll('#reset-button');
+        const gameModeSelect = document.getElementById('game-mode');
+        const difficultySelect = document.getElementById('difficulty');
+        const difficultyGroup = document.getElementById('difficulty-group');
+        const winLineElement = document.getElementById('win-line');
+        const themeButtons = document.querySelectorAll('.theme-buttons button');
+        const bodyElement = document.body;
+
+        // --- Game State ---
+        const PLAYER_X = 'x'; const PLAYER_O = 'o';
+        let currentPlayer = PLAYER_X; let boardState = Array(9).fill(null);
+        let gameActive = true; let gameMode = 'ai'; let difficulty = 'easy';
+        let scores = { x: 0, o: 0, ties: 0 }; let currentTheme = 'light';
+
+        // --- Winning Combinations ---
+        const winningCombinations = [ [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6] ];
+
+        // --- Supabase Client Initialization ---
+        // Using the credentials provided in the context block
+        const SUPABASE_URL = 'https://okpbcymkofvsobvppaed.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rcGJjeW1rb2Z2c29idnBwYWVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM1MjA1NjEsImV4cCI6MjA1OTA5NjU2MX0.QJ5TK-clQXjB7ch66SiAPesUvu42JVi-x_1UTNVPV-I';
+        let supabase = null;
+
+        try {
+            // Check if the URL and Key are the actual values, not placeholders
+            if (SUPABASE_URL && SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON_KEY && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY') {
+                 supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+                 console.log("Supabase client initialized successfully.");
+            } else {
+                 console.warn("Supabase URL and/or Key are placeholders. Signup/Login will not work. Please replace them with your actual Supabase credentials.");
+                 // Optionally disable signup form if no credentials
+                 if(signupButton) signupButton.disabled = true;
+                 if(signupForm) signupForm.addEventListener('submit', (e) => {
+                     e.preventDefault();
+                     showSignupMessage("Signup is not configured. Please provide Supabase credentials in the code.");
+                 });
+            }
+        } catch (error) {
+            console.error("Error initializing Supabase:", error);
+            showSignupMessage("Failed to initialize authentication service.");
+            if(signupButton) signupButton.disabled = true;
+        }
+
+
+        // --- Functions ---
+
+        function showScreen(screenToShow) {
+            console.log(`Showing screen: ${screenToShow.id}`); // Debug log
+            document.querySelectorAll('.screen').forEach(screen => screen.classList.add('hidden'));
+            if (screenToShow) screenToShow.classList.remove('hidden');
+        }
+
+        function showSignupMessage(message, isError = true) {
+            console.log(`Signup Message (${isError ? 'Error' : 'Success'}): ${message}`); // Debug log
+            signupMessageElement.textContent = message;
+            signupMessageElement.className = 'message'; // Reset class
+            signupMessageElement.classList.add(isError ? 'error' : 'success');
+            signupMessageElement.style.display = 'block';
+        }
+
+        async function handleSignup(event) {
+            event.preventDefault();
+            console.log("handleSignup called"); // Debug log
+
+            if (!supabase) {
+                showSignupMessage("Signup service is unavailable.");
+                console.error("Supabase client not initialized."); // Debug log
+                return;
+            }
+
+            const email = signupEmailInput.value.trim();
+            const password = signupPasswordInput.value;
+            console.log(`Attempting signup for email: ${email}`); // Debug log
+
+            if (!email || !password) {
+                showSignupMessage("Please enter both email and password.");
+                return;
+            }
+             if (password.length < 8) {
+                 showSignupMessage("Password must be at least 8 characters long.");
+                 return;
+             }
+
+            signupButton.disabled = true;
+            signupButton.textContent = 'Signing Up...';
+            signupMessageElement.style.display = 'none';
+
+            try {
+                console.log("Calling supabase.auth.signUp..."); // Debug log
+                const { data, error } = await supabase.auth.signUp({ email, password });
+                console.log("Supabase signUp response received."); // Debug log
+
+                if (error) {
+                    console.error('Supabase Signup Error:', error); // Log the full error
+                    showSignupMessage(error.message || "An error occurred during signup.");
+                } else if (data.user) {
+                    console.log('Supabase Signup Success:', data); // Log success data
+
+                    // Check if email confirmation is required (user exists but session is null)
+                    if (data.user && !data.session) {
+                         console.log("Signup successful, but email confirmation might be required.");
+                         showSignupMessage("Signup successful! Please check your email to confirm your account, then log in.", false);
+                         // Don't proceed directly to game, maybe show login link or stay here
+                         // For now, we'll just leave the message. A real app needs a login flow.
+                    } else {
+                         // User created and session likely exists (or email confirmation not required)
+                         showSignupMessage("Signup successful! Starting game...", false);
+                         setTimeout(() => {
+                              console.log("Proceeding to game screen after signup."); // Debug log
+                              showScreen(gameScreen);
+                              resetGame();
+                         }, 1500);
+                    }
+
+                } else {
+                     // This case might indicate an issue if data.user is null without an error
+                     console.warn("Supabase signup returned no user and no error.", data);
+                     showSignupMessage("An unexpected issue occurred during signup. Please try again.");
+                }
+
+            } catch (error) {
+                console.error('Unexpected Error in handleSignup:', error); // Log unexpected errors
+                showSignupMessage("An unexpected error occurred. Please try again.");
+            } finally {
+                // Re-enable button only if we are still on the signup screen
+                if (!gameScreen.classList.contains('hidden')) {
+                    // Already navigated away
+                } else {
+                     signupButton.disabled = false;
+                     signupButton.textContent = 'Create Account';
+                }
+            }
+        }
+
+
+        // --- Game Logic Functions (Unchanged) ---
+        function createBoard() { /* ... */
+             let winLine = boardElement.querySelector('.win-line'); if (!winLine) { winLine = document.createElement('div'); winLine.classList.add('win-line'); winLine.id = 'win-line'; } winLine.style.display = 'none'; boardElement.innerHTML = ''; boardElement.appendChild(winLine);
+             for (let i = 0; i < 9; i++) { const cell = document.createElement('div'); cell.classList.add('cell'); cell.dataset.index = i; cell.addEventListener('click', handleCellClick); boardElement.appendChild(cell); }
+             boardElement.style.animation = 'none'; void boardElement.offsetWidth; boardElement.style.animation = ''; }
+        function handleCellClick(event) { /* ... */
+            const index = event.target.dataset.index; if (!gameActive || boardState[index] !== null || (gameMode === 'ai' && currentPlayer === PLAYER_O)) return;
+            if (makeMove(index, currentPlayer)) { if (gameActive && gameMode === 'ai' && currentPlayer === PLAYER_O) { boardElement.style.pointerEvents = 'none'; updateStatus("Computer O is thinking..."); setTimeout(() => { aiMove(); if (gameActive) boardElement.style.pointerEvents = 'auto'; }, 600 + Math.random() * 400); } } }
+        function makeMove(index, player) { /* ... */
+            if (boardState[index] !== null || !gameActive) return false; boardState[index] = player; const cell = boardElement.querySelector(`.cell[data-index='${index}']`); if (cell) cell.classList.add(player, 'occupied'); const winningCombo = checkWin(player);
+            if (winningCombo) { drawWinningLine(winningCombo); endGame(false, player); } else if (boardState.every(cellVal => cellVal !== null)) { endGame(true); } else { switchPlayer(); } return true; }
+        function switchPlayer() { /* ... */ currentPlayer = currentPlayer === PLAYER_X ? PLAYER_O : PLAYER_X; updateStatus(); }
+        function updateStatus(overrideMessage = null) { /* ... */
+            let message = ''; let turnText = ''; if (overrideMessage) { message = overrideMessage; turnText = message; } else if (!gameActive) { return; } else { let playerName = gameMode === '1v1' ? `Player ${currentPlayer.toUpperCase()}` : (currentPlayer === PLAYER_X ? 'Your (X)' : 'Computer (O)'); message = `${playerName}'s Turn`; turnText = `${currentPlayer.toUpperCase()} TURN`; } statusElement.textContent = message;
+            if (turnIndicatorElement) { turnIndicatorText.textContent = turnText; turnIndicatorElement.className = 'turn-indicator'; if (message.includes('Turn')) turnIndicatorElement.classList.add(`${currentPlayer}-turn`); } }
+        function checkWin(player) { /* ... */ return winningCombinations.find(combination => combination.every(index => boardState[index] === player)); }
+        function drawWinningLine(combination) { /* ... */
+             const startCell = boardElement.querySelector(`.cell[data-index='${combination[0]}']`); const endCell = boardElement.querySelector(`.cell[data-index='${combination[2]}']`); if (!startCell || !endCell || !winLineElement) return; winLineElement.style.display = 'block'; const startX = startCell.offsetLeft + startCell.offsetWidth / 2; const startY = startCell.offsetTop + startCell.offsetHeight / 2; const endX = endCell.offsetLeft + endCell.offsetWidth / 2; const endY = endCell.offsetTop + endCell.offsetHeight / 2; const deltaX = endX - startX; const deltaY = endY - startY; const length = Math.sqrt(deltaX * deltaX + deltaY * deltaY) ; const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI); winLineElement.style.width = `${length}px`; winLineElement.style.top = `${startY - winLineElement.offsetHeight / 2}px`; winLineElement.style.left = `${startX}px`; winLineElement.style.transform = `rotate(${angle}deg)`; winLineElement.style.transformOrigin = '0% 50%'; winLineElement.style.animation = 'none'; void winLineElement.offsetWidth; winLineElement.style.animation = 'drawLine 0.6s ease-out forwards'; }
+        function endGame(draw, winner = null) { /* ... */
+            gameActive = false; boardElement.style.pointerEvents = 'none'; let finalMessage = ''; if (draw) { finalMessage = "It's a Draw!"; scores.ties++; triggerScoreUpdate(tiesScoreElement.parentElement); } else if (winner) { finalMessage = `Player ${winner.toUpperCase()} Wins!`; scores[winner]++; if(winner === PLAYER_X) triggerScoreUpdate(player1ScoreElement.parentElement); else triggerScoreUpdate(player2ScoreElement.parentElement); winningCombinations.forEach(combination => { if (combination.every(index => boardState[index] === winner)) { combination.forEach(index => { const cell = boardElement.querySelector(`.cell[data-index='${index}']`); if(cell) cell.style.filter = 'brightness(0.8)'; }); } }); } updateStatus(finalMessage); updateScoreboard(); }
+        function triggerScoreUpdate(scoreBoxElement) { /* ... */ if (!scoreBoxElement) return; const span = scoreBoxElement.querySelector('span'); if (!span) return; span.classList.add('updated'); span.addEventListener('animationend', () => span.classList.remove('updated'), { once: true }); }
+        function updateScoreboard() { /* ... */ player1ScoreElement.textContent = scores.x; tiesScoreElement.textContent = scores.ties; player2ScoreElement.textContent = scores.o; }
+        function resetGame() { /* ... */
+            currentPlayer = PLAYER_X; boardState = Array(9).fill(null); gameActive = true; if(winLineElement) winLineElement.style.display = 'none'; boardElement.style.pointerEvents = 'auto'; const cells = boardElement.querySelectorAll('.cell'); cells.forEach(cell => { cell.classList.remove(PLAYER_X, PLAYER_O, 'occupied'); cell.style.filter = 'none'; }); updateStatus(); updateScoreboard(); updatePlayerLabels();
+             if (!gameScreen.classList.contains('hidden')) { document.querySelectorAll('#game-screen .settings, #game-screen .board, #game-screen .scoreboard, #game-screen #reset-button.main-reset, #game-screen .top-bar').forEach(el => { if (window.getComputedStyle(el).display !== 'none') { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; } }); document.querySelectorAll('#game-screen .score').forEach((el, index) => { el.style.animation = 'none'; void el.offsetWidth; el.style.setProperty('--index', index); el.style.animation = 'scoreAppear 0.3s ease forwards'; el.style.animationDelay = `calc(var(--index) * 0.1s + 0.3s)`; }); } }
+        function updatePlayerLabels() { /* ... */ player1LabelElement.textContent = gameMode === 'ai' ? "X (YOU)" : "Player X"; player2LabelElement.textContent = gameMode === 'ai' ? "O (CPU)" : "Player O"; }
+        function handleModeChange() { /* ... */ gameMode = gameModeSelect.value; difficultyGroup.style.display = gameMode === 'ai' ? 'flex' : 'none'; if (gameMode === 'ai') difficulty = difficultySelect.value; scores = { x: 0, o: 0, ties: 0 }; resetGame(); }
+        function handleDifficultyChange() { /* ... */ difficulty = difficultySelect.value; }
+        function handleThemeChange(theme) { /* ... */ currentTheme = theme; bodyElement.dataset.theme = theme; themeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.theme === theme)); localStorage.setItem('ticTacToeTheme', theme); }
+        // --- AI Logic (Unchanged) ---
+        function aiMove(){if(!gameActive||currentPlayer!==PLAYER_O)return;let bestMove;switch(difficulty){case'easy':bestMove=getRandomMove();break;case'medium':bestMove=getMediumMove();break;case'hard':bestMove=findBestMove();break;default:bestMove=getRandomMove();}if(bestMove!==undefined)makeMove(bestMove,PLAYER_O);else updateStatus();}
+        function getRandomMove(){const available=boardState.map((c,i)=>(c===null?i:null)).filter(i=>i!==null);return available.length>0?available[Math.floor(Math.random()*available.length)]:undefined;}
+        function getMediumMove(){for(let i=0;i<9;i++){if(boardState[i]===null){boardState[i]=PLAYER_O;if(checkWin(PLAYER_O)){boardState[i]=null;return i;}boardState[i]=null;}} for(let i=0;i<9;i++){if(boardState[i]===null){boardState[i]=PLAYER_X;if(checkWin(PLAYER_X)){boardState[i]=null;return i;}boardState[i]=null;}} if(boardState[4]===null)return 4; return getRandomMove();}
+        function findBestMove(){let bestScore=-Infinity;let move;for(let i=0;i<9;i++){if(boardState[i]===null){boardState[i]=PLAYER_O;let score=minimax(boardState,0,false);boardState[i]=null;if(score>bestScore){bestScore=score;move=i;}}} return move!==undefined?move:getRandomMove();}
+        const scoresMinimax={[PLAYER_O]:10,[PLAYER_X]:-10,tie:0};
+        function minimax(currentBoard,depth,isMaximizing){const winnerX=checkWin(PLAYER_X);if(winnerX)return scoresMinimax[PLAYER_X]+depth;const winnerO=checkWin(PLAYER_O);if(winnerO)return scoresMinimax[PLAYER_O]-depth;if(currentBoard.every(cell=>cell!==null))return scoresMinimax.tie;let bestScore=isMaximizing?-Infinity:Infinity;const player=isMaximizing?PLAYER_O:PLAYER_X;for(let i=0;i<9;i++){if(currentBoard[i]===null){currentBoard[i]=player;let score=minimax(currentBoard,depth+1,!isMaximizing);currentBoard[i]=null;bestScore=isMaximizing?Math.max(score,bestScore):Math.min(score,bestScore);}}return bestScore;}
+
+
+        // --- Event Listeners ---
+        playButton.addEventListener('click', () => {
+            console.log("Play button clicked"); // Debug log
+            showScreen(signupScreen);
+            signupMessageElement.style.display = 'none';
+            signupEmailInput.value = '';
+            signupPasswordInput.value = '';
+        });
+
+        // Listener for the new guest button
+        if (guestPlayButton) {
+             guestPlayButton.addEventListener('click', () => {
+                 console.log("Guest Play button clicked"); // Debug log
+                 showScreen(gameScreen);
+                 resetGame(); // Start fresh game as guest
+             });
+        } else {
+             console.error("Guest play button not found!");
+        }
+
+
+        if (signupForm) {
+            signupForm.addEventListener('submit', handleSignup);
+        } else {
+            console.error("Signup form not found!");
+        }
+
+
+        resetButtons.forEach(button => button.addEventListener('click', resetGame));
+        gameModeSelect.addEventListener('change', handleModeChange);
+        difficultySelect.addEventListener('change', handleDifficultyChange);
+        themeButtons.forEach(button => {
+            button.addEventListener('click', () => handleThemeChange(button.dataset.theme));
+        });
+
+        // --- Initial Setup ---
+        const savedTheme = localStorage.getItem('ticTacToeTheme') || 'light';
+        handleThemeChange(savedTheme);
+        createBoard();
+        updatePlayerLabels();
+        handleModeChange();
+        showScreen(homeScreen); // Start on the home screen
+
+        // Initial score animation setup
+        document.querySelectorAll('.score').forEach((el, index) => {
+            el.style.setProperty('--index', index);
+        });
+
+    </script>
+</body>
+</html>
