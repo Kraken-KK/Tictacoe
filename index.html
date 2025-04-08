@@ -13,7 +13,9 @@
           src: url('https://cdn.jsdelivr.net/npm/lucide-static@latest/font/Lucide.ttf') format('truetype');
         }
 
-        /* Global Variables & Themes (Mostly unchanged) */
+        /* Styles are largely unchanged */
+        /* ... (CSS Styles from previous version) ... */
+        /* Global Variables & Themes */
         :root {
             --font-main: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             --font-icons: 'LucideIcons';
@@ -54,19 +56,21 @@
             --theme-btn-deluxe-bg: #14b8a6;
             --theme-btn-udeluxe-bg: #34495e;
             --theme-btn-text: var(--text-color);
-            /* Signup Specific */
-            --signup-left-bg: #1e3a8a; /* Dark Blue */
-            --signup-right-bg: #ffffff;
-            --signup-input-border: #d1d5db;
-            --signup-input-focus-border: #4f46e5; /* Indigo */
-            --signup-button-bg: #4f46e5; /* Indigo */
-            --signup-button-hover-bg: #6366f1;
+            /* Auth Screen Specific */
+            --auth-bg: #ffffff;
+            --auth-input-border: #d1d5db;
+            --auth-input-focus-border: #4f46e5; /* Indigo */
+            --auth-button-login-bg: #3b82f6; /* Blue */
+            --auth-button-login-hover-bg: #2563eb;
+            --auth-button-signup-bg: #10b981; /* Green */
+            --auth-button-signup-hover-bg: #059669;
             --guest-button-bg: transparent;
-            --guest-button-text: var(--signup-button-bg);
-            --guest-button-border: var(--signup-button-bg);
-            --guest-button-hover-bg: rgba(79, 70, 229, 0.1);
+            --guest-button-text: #6b7280; /* Gray */
+            --guest-button-border: #d1d5db;
+            --guest-button-hover-bg: #f3f4f6; /* Light Gray */
             --error-color: #dc2626; /* Red */
             --success-color: #16a34a; /* Green */
+            --signup-input-focus-border-alpha: rgba(79, 70, 229, 0.2);
         }
 
         [data-theme="dark"] {
@@ -90,13 +94,14 @@
             --score-box-ties-text: var(--text-color);
             --score-box-p2-text: var(--text-color);
             --theme-btn-text: #ecf0f1;
-             /* Signup Specific */
-            --signup-right-bg: #1f2937; /* Dark Grey for right panel */
-            --signup-input-border: #4b5563;
-            --signup-input-focus-border: #818cf8; /* Lighter Indigo */
-            --guest-button-text: #818cf8;
-            --guest-button-border: #818cf8;
-            --guest-button-hover-bg: rgba(129, 140, 248, 0.1);
+             /* Auth Specific */
+            --auth-bg: #374151; /* Dark Gray */
+            --auth-input-border: #6b7280;
+            --auth-input-focus-border: #60a5fa; /* Lighter Blue */
+            --guest-button-text: #d1d5db; /* Light Gray */
+            --guest-button-border: #6b7280;
+            --guest-button-hover-bg: #4b5563; /* Darker Gray */
+            --signup-input-focus-border-alpha: rgba(96, 165, 250, 0.3);
         }
 
         [data-theme="deluxe"] {
@@ -125,16 +130,18 @@
             --score-box-radius: 0px;
             --score-padding: 0;
             --theme-btn-text: #ffffff;
-            /* Signup Specific */
-            --signup-left-bg: #0f766e; /* Darker Teal */
-            --signup-right-bg: #f0fdfa; /* Very Light Mint */
-            --signup-input-border: #5eead4;
-            --signup-input-focus-border: #14b8a6;
-            --signup-button-bg: #0d9488;
-            --signup-button-hover-bg: #0f766e;
-            --guest-button-text: var(--signup-button-bg);
-            --guest-button-border: var(--signup-button-bg);
-            --guest-button-hover-bg: rgba(13, 148, 136, 0.1);
+            /* Auth Specific */
+            --auth-bg: #ccfbf1; /* Very Light Mint */
+            --auth-input-border: #5eead4;
+            --auth-input-focus-border: #14b8a6;
+            --auth-button-login-bg: #0d9488;
+            --auth-button-login-hover-bg: #0f766e;
+            --auth-button-signup-bg: #047857;
+            --auth-button-signup-hover-bg: #065f46;
+            --guest-button-text: #0f766e;
+            --guest-button-border: #5eead4;
+            --guest-button-hover-bg: #99f6e4;
+             --signup-input-focus-border-alpha: rgba(20, 184, 166, 0.3);
         }
 
         [data-theme="u-deluxe"] {
@@ -168,16 +175,18 @@
             --score-padding: 0;
             --top-bar-bg: var(--button-bg);
             --theme-btn-text: #ecf0f1;
-            /* Signup Specific */
-             --signup-left-bg: #1f2937; /* Dark Grey */
-             --signup-right-bg: #374151; /* Lighter Dark Grey */
-             --signup-input-border: #4b5563;
-             --signup-input-focus-border: #48c9b0; /* Teal */
-             --signup-button-bg: #48c9b0; /* Teal */
-             --signup-button-hover-bg: #5eead4;
-             --guest-button-text: var(--signup-button-bg);
-             --guest-button-border: var(--signup-button-bg);
-             --guest-button-hover-bg: rgba(72, 201, 176, 0.1);
+            /* Auth Specific */
+             --auth-bg: #374151; /* Dark Gray */
+             --auth-input-border: #6b7280;
+             --auth-input-focus-border: #48c9b0; /* Teal */
+             --auth-button-login-bg: #48c9b0; /* Teal */
+             --auth-button-login-hover-bg: #5eead4;
+             --auth-button-signup-bg: #f1c40f; /* Yellow */
+             --auth-button-signup-hover-bg: #f59e0b;
+             --guest-button-text: #d1d5db;
+             --guest-button-border: #6b7280;
+             --guest-button-hover-bg: #4b5563;
+             --signup-input-focus-border-alpha: rgba(72, 201, 176, 0.3);
         }
 
         /* Base Styles */
@@ -201,7 +210,7 @@
         }
         .screen.hidden { opacity: 0; visibility: hidden; pointer-events: none; }
 
-        /* --- Homepage Styles (Unchanged) --- */
+        /* --- Homepage Styles --- */
         #home-screen { background-color: #4f46e5; color: #ffffff; justify-content: space-around; text-align: center; }
         .home-title { font-size: clamp(3em, 15vmin, 6em); font-weight: bold; line-height: 1; margin-bottom: 10px; animation: fadeInDown 0.8s ease forwards; }
         .home-title span { display: block; }
@@ -212,140 +221,49 @@
         #play-button:hover { background-color: #818cf8; transform: translateY(-3px); }
         #play-button:active { transform: translateY(0); }
 
-        /* --- Signup Screen Styles --- */
-        #signup-screen {
-            justify-content: flex-start; /* Align content to top */
-            padding: 0; /* Remove padding for full screen columns */
-            flex-direction: row; /* Side-by-side columns */
-        }
-
-        .signup-column {
-            height: 100%;
-            padding: 40px;
-            overflow-y: auto;
-        }
-
-        .signup-left {
-            flex-basis: 40%; /* Adjust width ratio */
-            background-color: var(--signup-left-bg);
-            color: #ffffff;
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Center content vertically */
-        }
-        .signup-left h2 { font-size: 2.5em; margin-bottom: 15px; }
-        .signup-left p { font-size: 1.1em; opacity: 0.8; line-height: 1.6; }
-
-        .signup-right {
-            flex-basis: 60%;
-            background-color: var(--signup-right-bg);
-            color: var(--text-color); /* Use theme text color */
-            display: flex;
-            flex-direction: column;
-            justify-content: center; /* Center form vertically */
-        }
-
-        .signup-header { text-align: right; margin-bottom: 30px; }
-        .signup-header a { color: var(--signup-button-bg); text-decoration: none; font-weight: 500; }
-        .signup-header a:hover { text-decoration: underline; }
-
-        .signup-form-container { max-width: 400px; width: 100%; margin: 0 auto; }
-        .signup-form-container h2 { font-size: 2em; margin-bottom: 10px; color: var(--text-color); }
-        .signup-form-container p { margin-bottom: 30px; opacity: 0.7; }
-
-        #signup-form label {
-            display: block;
-            font-weight: 500;
-            margin-bottom: 5px;
-            font-size: 0.9em;
+        /* --- Auth Screen Styles --- */
+        #auth-screen { /* Uses standard screen centering */ }
+        .auth-container {
+            background-color: var(--auth-bg);
             color: var(--text-color);
+            padding: 30px; border-radius: 12px;
+            box-shadow: 0 10px 25px var(--shadow-color);
+            width: 100%; max-width: 400px; text-align: center;
         }
-        #signup-form input[type="email"],
-        #signup-form input[type="password"] {
-            width: 100%;
-            padding: 12px 15px;
-            margin-bottom: 20px;
-            border: 1px solid var(--signup-input-border);
-            border-radius: 8px;
-            font-size: 1em;
-            background-color: var(--cell-bg); /* Use cell bg for consistency */
-            color: var(--text-color);
-            transition: border-color var(--transition-speed) ease;
-        }
-        #signup-form input:focus {
-            outline: none;
-            border-color: var(--signup-input-focus-border);
-            box-shadow: 0 0 0 2px var(--signup-input-focus-border-alpha, rgba(79, 70, 229, 0.2)); /* Use alpha version */
-        }
-         /* Update focus shadow color based on theme */
-         :root { --signup-input-focus-border-alpha: rgba(79, 70, 229, 0.2); }
-         [data-theme="dark"] { --signup-input-focus-border-alpha: rgba(129, 140, 248, 0.3); }
-         [data-theme="deluxe"] { --signup-input-focus-border-alpha: rgba(20, 184, 166, 0.3); }
-         [data-theme="u-deluxe"] { --signup-input-focus-border-alpha: rgba(72, 201, 176, 0.3); }
+        .auth-container h2 { font-size: 1.8em; font-weight: 600; margin-bottom: 25px; color: var(--text-color); }
+        #auth-message { text-align: center; padding: 10px; margin-bottom: 15px; border-radius: 6px; font-weight: 500; display: none; }
+        #auth-message.error { background-color: var(--error-color); color: white; display: block; }
+        #auth-message.success { background-color: var(--success-color); color: white; display: block; }
+        .auth-input-group { margin-bottom: 20px; text-align: left; }
+        .auth-input-group label { display: block; margin-bottom: 5px; font-weight: 500; font-size: 0.9em; }
+        .auth-input-group input { width: 100%; padding: 10px 12px; border: 1px solid var(--auth-input-border); border-radius: 8px; font-size: 1em; background-color: var(--cell-bg); color: var(--text-color); transition: border-color var(--transition-speed) ease; }
+        .auth-input-group input:focus { outline: none; border-color: var(--auth-input-focus-border); box-shadow: 0 0 0 2px var(--signup-input-focus-border-alpha); }
+        .auth-buttons { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+        .auth-buttons button { padding: 12px; font-size: 1em; font-weight: 600; border-radius: 8px; cursor: pointer; transition: background-color var(--transition-speed) ease, transform 0.15s ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease; border: none; width: 100%; }
+        #login-button { background-color: var(--auth-button-login-bg); color: white; }
+        #login-button:hover { background-color: var(--auth-button-login-hover-bg); transform: translateY(-1px); }
+        #signup-button { background-color: var(--auth-button-signup-bg); color: white; }
+        #signup-button:hover { background-color: var(--auth-button-signup-hover-bg); transform: translateY(-1px); }
+        #guest-play-button { background-color: var(--guest-button-bg); color: var(--guest-button-text); border: 2px solid var(--guest-button-border); font-weight: 500; }
+        #guest-play-button:hover { background-color: var(--guest-button-hover-bg); transform: translateY(-1px); }
+        .auth-buttons button:disabled { background-color: #9ca3af !important; color: #e5e7eb !important; border-color: #9ca3af !important; cursor: not-allowed; transform: none; } /* Important to override theme colors */
+        .auth-info { font-size: 0.8em; color: var(--text-color); opacity: 0.7; margin-top: 15px; }
 
-
-        .password-criteria {
-            font-size: 0.8em;
-            color: var(--text-color);
-            opacity: 0.7;
-            margin-top: -10px;
-            margin-bottom: 20px;
-            display: grid; /* Use grid for checklist */
-            grid-template-columns: 1fr 1fr;
-            gap: 5px;
-        }
-        .password-criteria span { display: flex; align-items: center; }
-
-        #signup-button, #guest-play-button { /* Style both buttons */
-            width: 100%;
-            padding: 14px;
-            font-size: 1.1em;
-            font-weight: bold;
-            border-radius: 8px;
-            cursor: pointer;
-            transition: background-color var(--transition-speed) ease, transform 0.2s ease, border-color var(--transition-speed) ease, color var(--transition-speed) ease;
-            margin-top: 10px;
-            text-align: center; /* Ensure text is centered */
-        }
-
-        #signup-button {
-            background-color: var(--signup-button-bg);
-            color: #ffffff;
-            border: none;
-        }
-        #signup-button:hover { background-color: var(--signup-button-hover-bg); transform: translateY(-2px); }
-        #signup-button:disabled { background-color: gray; cursor: not-allowed; }
-
-        /* Style for the guest button */
-        #guest-play-button {
-            background-color: var(--guest-button-bg);
-            color: var(--guest-button-text);
-            border: 2px solid var(--guest-button-border);
-        }
-        #guest-play-button:hover {
-            background-color: var(--guest-button-hover-bg);
-            transform: translateY(-2px);
-        }
-
-
-        .signup-footer { text-align: center; font-size: 0.8em; opacity: 0.6; margin-top: 20px; }
-        .signup-footer a { color: var(--text-color); }
-
-        #signup-message {
-            margin-top: 15px;
-            padding: 10px;
-            border-radius: 6px;
-            font-weight: 500;
-            display: none; /* Hidden by default */
-        }
-        #signup-message.error { background-color: var(--error-color); color: white; display: block; }
-        #signup-message.success { background-color: var(--success-color); color: white; display: block; }
-
-        /* --- Game Screen Styles (Mostly Unchanged) --- */
+        /* --- Game Screen Styles --- */
         #game-screen { justify-content: space-between; }
         .icon { font-family: var(--font-icons); font-size: 1.3em; line-height: 1; display: inline-block; color: var(--icon-color); transition: transform var(--transition-speed) ease, color var(--transition-speed) ease; vertical-align: middle; }
         button .icon { margin-right: 5px; } button.icon-only .icon { margin-right: 0; } button:hover .icon { transform: scale(1.1) rotate(5deg); }
         .container { width: 100%; max-width: 500px; display: flex; flex-direction: column; align-items: center; gap: 15px; }
+        .game-header { display: flex; justify-content: space-between; align-items: center; width: 100%; max-width: 500px; padding: 5px 0; margin-bottom: 5px; font-size: 0.9em; }
+        .user-info { color: var(--text-color); opacity: 0.8; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: calc(100% - 80px); /* Prevent overlap */ }
+        #logout-button { background: none; border: none; color: var(--o-color); cursor: pointer; padding: 5px; display: flex; align-items: center; gap: 4px; font-size: 0.9em; font-weight: 500; }
+        #logout-button .icon { font-size: 1.1em; } #logout-button:hover { color: var(--error-color); }
+        #game-screen:not(.logged-in) .game-header { display: none; }
+        [data-theme="u-deluxe"] .game-header { display: none; }
+        [data-theme="u-deluxe"] .top-bar .user-info { margin-right: 10px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; max-width: 150px; }
+        [data-theme="u-deluxe"] .top-bar #logout-button-topbar { order: 3; color: var(--o-color); } /* Move logout after reset */
+        [data-theme="u-deluxe"] .top-bar #logout-button-topbar:hover { color: var(--error-color); }
+
         .top-bar { display: none; width: 100%; justify-content: space-between; align-items: center; padding: 10px 15px; border-radius: 10px; margin-bottom: 10px; background-color: var(--top-bar-bg); box-shadow: 0 4px 10px var(--shadow-color); animation: slideInDown 0.5s ease forwards; }
         [data-theme="u-deluxe"] .top-bar { display: flex; }
         .logo { font-size: 1.8em; font-weight: bold; } .logo .x { color: var(--x-color); } .logo .o { color: var(--o-color); }
@@ -359,13 +277,13 @@
         .setting-group { display: flex; flex-direction: column; align-items: center; gap: 5px; }
         .setting-group.theme-buttons { width: 100%; flex-direction: row; justify-content: center; gap: 8px; }
         label { font-weight: bold; font-size: 0.9em; opacity: 0.8; }
-        select, button:not(#signup-button):not(#guest-play-button):not(#play-button) { /* Exclude signup/guest/play buttons */
+        select, button:not(#login-button):not(#signup-button):not(#guest-play-button):not(#play-button):not(#logout-button):not(#logout-button-topbar) { /* Exclude auth/guest/play/logout buttons */
              padding: 8px 12px; border-radius: 8px; border: none; background-color: var(--button-bg); color: var(--button-text-color); font-family: var(--font-main); font-size: 0.9em; cursor: pointer; transition: background-color var(--transition-speed) ease, transform 0.2s ease, box-shadow var(--transition-speed) ease; box-shadow: 0 3px 6px var(--shadow-color);
         }
         select { appearance: none; padding-right: 25px; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='16' height='16' viewBox='0 0 24 24' fill='none' stroke='%23${(props) => props.theme.iconColor.substring(1)}' stroke-width='3' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E"); background-repeat: no-repeat; background-position: right 8px center; background-size: 12px 12px; }
-        select:focus, button:not(#signup-button):not(#guest-play-button):not(#play-button):focus { outline: 2px solid var(--x-color); outline-offset: 2px; }
-        button:not(#signup-button):not(#guest-play-button):not(#play-button):hover { background-color: var(--button-hover-bg); transform: translateY(-2px) scale(1.02); box-shadow: 0 5px 10px var(--shadow-color); }
-        button:not(#signup-button):not(#guest-play-button):not(#play-button):active { transform: translateY(0) scale(0.98); box-shadow: 0 2px 4px var(--shadow-color); }
+        select:focus, button:not(#login-button):not(#signup-button):not(#guest-play-button):not(#play-button):not(#logout-button):not(#logout-button-topbar):focus { outline: 2px solid var(--x-color); outline-offset: 2px; }
+        button:not(#login-button):not(#signup-button):not(#guest-play-button):not(#play-button):not(#logout-button):not(#logout-button-topbar):hover { background-color: var(--button-hover-bg); transform: translateY(-2px) scale(1.02); box-shadow: 0 5px 10px var(--shadow-color); }
+        button:not(#login-button):not(#signup-button):not(#guest-play-button):not(#play-button):not(#logout-button):not(#logout-button-topbar):active { transform: translateY(0) scale(0.98); box-shadow: 0 2px 4px var(--shadow-color); }
         .theme-buttons button { padding: 8px 18px; font-size: 0.85em; font-weight: bold; line-height: 1; border-radius: 999px; border: 2px solid rgba(0,0,0,0.1); color: var(--theme-btn-text); }
         #light-theme-btn { background-color: var(--theme-btn-light-bg); border-color: #ccc; color: #333; }
         #dark-theme-btn { background-color: var(--theme-btn-dark-bg); } #deluxe-theme-btn { background-color: var(--theme-btn-deluxe-bg); } #u-deluxe-theme-btn { background-color: var(--theme-btn-udeluxe-bg); }
@@ -403,12 +321,6 @@
         @keyframes scoreUpdate { 0% { transform: scale(1); } 50% { transform: scale(1.2); color: var(--win-line-color); } 100% { transform: scale(1); } }
 
         /* Media Queries */
-        @media (max-width: 768px) { /* Tablet breakpoint */
-             #signup-screen { flex-direction: column; } /* Stack columns */
-             .signup-left, .signup-right { flex-basis: auto; height: auto; min-height: 50vh; } /* Adjust height */
-             .signup-left { justify-content: flex-start; padding-top: 60px; text-align: center;} /* Adjust padding */
-             .signup-right { justify-content: flex-start; padding-top: 40px; }
-        }
         @media (max-width: 600px) {
             h1 { font-size: 2em; } .container { gap: 10px; } .settings { margin-bottom: 10px; }
             .board { width: min(85vw, 300px); height: min(85vw, 300px); }
@@ -416,83 +328,70 @@
             .score { padding: 8px 5px; } .score p { font-size: 0.75em; } .score span { font-size: 1.4em; }
             .status { font-size: 1.1em; } .top-bar { padding: 8px 10px; } .logo { font-size: 1.5em; }
             .turn-indicator { padding: 6px 10px; font-size: 0.9em; } .theme-buttons button { padding: 6px 12px; font-size: 0.8em; }
+            .auth-container { padding: 20px; } .auth-container h2 { font-size: 1.5em; }
         }
          @media (max-width: 400px) {
-             body { padding: 0; } /* Remove body padding for edge-to-edge */
-             .screen { padding: 15px; } /* Add padding back to screens */
-             #signup-screen { padding: 0; } /* No padding on signup screen itself */
-             .signup-column { padding: 25px; } /* Padding within columns */
-             .signup-left h2 { font-size: 2em; } .signup-left p { font-size: 1em; }
-             .signup-form-container h2 { font-size: 1.8em; }
+             body { padding: 0; } .screen { padding: 15px; }
              .board { width: min(90vw, 260px); height: min(90vw, 260px); }
              .cell { font-size: clamp(1.8em, 9vmin, 3.5em); }
              [data-theme="u-deluxe"] .cell.o::before { --o-border-width: 5px; }
              .scoreboard { max-width: 95%; } .score span { font-size: 1.2em; }
              .top-bar { flex-wrap: wrap; justify-content: center; gap: 5px;} .logo { display: none; }
              .settings { gap: 8px; } .theme-buttons button { padding: 5px 10px; font-size: 0.75em; }
-             select, button:not(#signup-button):not(#guest-play-button):not(#play-button) { padding: 6px 10px; font-size: 0.85em; } /* Exclude signup/guest/play */
+             select, button:not(#login-button):not(#signup-button):not(#guest-play-button):not(#play-button):not(#logout-button):not(#logout-button-topbar) { padding: 6px 10px; font-size: 0.85em; }
+             .auth-container { max-width: 95%; }
+             .auth-buttons button { padding: 10px; font-size: 0.95em; }
          }
 
     </style>
 </head>
-<body> <div id="home-screen" class="screen">
-        <div class="home-title">
-            <span>Tic</span>
-            <span>Tac</span>
-            <span>Toe</span>
-        </div>
-        <div class="home-graphic">
-            <span class="xo">X<span class="o">O</span></span>
-        </div>
+<body>
+
+    <div id="home-screen" class="screen">
+        <div class="home-title"><span>Tic</span><span>Tac</span><span>Toe</span></div>
+        <div class="home-graphic"><span class="xo">X<span class="o">O</span></span></div>
         <button id="play-button">Play</button>
     </div>
 
-    <div id="signup-screen" class="screen hidden">
-        <div class="signup-column signup-left">
-            <h2>Sign Up & Play!</h2>
-            <p>Create a free account to track your scores and challenge opponents.</p>
-        </div>
-        <div class="signup-column signup-right">
-            <div class="signup-header">
-                <p>Already have an account? <a href="#">Log in</a></p> </div>
-            <div class="signup-form-container">
-                <h2>Welcome to Tic-Tac-Toe 👋</h2>
-                <p>Enter your details below to get started.</p>
-
-                <form id="signup-form">
-                    <div>
-                        <label for="signup-email">Email</label>
-                        <input type="email" id="signup-email" name="email" required placeholder="you@example.com">
-                    </div>
-                    <div>
-                        <label for="signup-password">Password</label>
-                        <input type="password" id="signup-password" name="password" required placeholder="••••••••">
-                    </div>
-                    <div class="password-criteria">
-                        <span>✔ Lowercase characters</span>
-                        <span>✔ Uppercase characters</span>
-                        <span>✔ Numbers</span>
-                        <span>✔ 8+ characters minimum</span>
-                    </div>
-
-                    <div id="signup-message"></div>
-
-                    <button type="submit" id="signup-button">Create Account</button>
-                    <button type="button" id="guest-play-button">Continue without Signup</button>
-                </form>
-
-                <div class="signup-footer">
-                    By signing up, you agree to our <a href="#">Terms</a> and <a href="#">Privacy Policy</a>. </div>
+    <div id="auth-screen" class="screen hidden">
+        <div class="auth-container">
+            <h2>Login / Sign Up</h2>
+            <div id="auth-message"></div> <div class="auth-input-group">
+                <label for="auth-email">Email</label>
+                <input type="email" id="auth-email" placeholder="you@example.com" required>
             </div>
+            <div class="auth-input-group">
+                <label for="auth-password">Password</label>
+                <input type="password" id="auth-password" placeholder="••••••••" required>
+            </div>
+            <div class="auth-buttons">
+                <button id="login-button">Login</button>
+                <button id="signup-button">Sign Up</button>
+                <button id="guest-play-button">Continue as Guest</button>
+            </div>
+             <p class="auth-info">Password should be at least 6 characters.</p>
         </div>
     </div>
 
+
     <div id="game-screen" class="screen hidden">
-         <div class="container">
+        <div class="game-header">
+            <span class="user-info" id="user-info"></span>
+            <button id="logout-button" title="Logout">
+                <span id="logout-text">Logout</span>
+                <span class="icon" data-lucide="log-out"></span>
+            </button>
+        </div>
+
+        <div class="container">
              <div class="top-bar">
                 <div class="logo"><span class="x">X</span><span class="o">O</span></div>
+                <span class="user-info" id="user-info-topbar"></span>
                 <div class="turn-indicator" id="turn-indicator"><span class="text"></span></div>
                 <button id="reset-button" class="icon-only" title="Reset Game"><span class="icon" data-lucide="rotate-cw"></span></button>
+                <button id="logout-button-topbar" title="Logout" class="icon-only">
+                     <span class="icon" data-lucide="log-out"></span>
+                 </button>
             </div>
             <h1>Tic-Tac-Toe</h1>
             <div class="board" id="board">
@@ -518,8 +417,8 @@
             <button id="reset-button" class="main-reset"><span class="icon" data-lucide="rotate-cw"></span> Reset Game</button>
         </div>
         <div class="scoreboard">
-            <div class="score"> <p id="player1-label">X (YOU)</p> <span id="player1-score">0</span> </div>
-            <div class="score"> <p>Ties</p> <span id="ties-score">0</span> </div>
+             <div class="score"> <p id="player1-label">X (YOU)</p> <span id="player1-score">0</span> </div>
+            <div class="score"> <p id="ties-label">Ties</p> <span id="ties-score">0</span> </div>
             <div class="score"> <p id="player2-label">O (CPU)</p> <span id="player2-score">0</span> </div>
         </div>
     </div>
@@ -527,24 +426,31 @@
     <script>
         // --- DOM Elements ---
         const homeScreen = document.getElementById('home-screen');
-        const signupScreen = document.getElementById('signup-screen');
+        const authScreen = document.getElementById('auth-screen');
         const gameScreen = document.getElementById('game-screen');
         const playButton = document.getElementById('play-button');
-        const signupForm = document.getElementById('signup-form');
-        const signupEmailInput = document.getElementById('signup-email');
-        const signupPasswordInput = document.getElementById('signup-password');
+        // Auth Screen Elements (IDs must match HTML)
+        const authMessage = document.getElementById('auth-message');
+        const emailInput = document.getElementById('auth-email');
+        const passwordInput = document.getElementById('auth-password');
+        const loginButton = document.getElementById('login-button');
         const signupButton = document.getElementById('signup-button');
-        const guestPlayButton = document.getElementById('guest-play-button'); // New button
-        const signupMessageElement = document.getElementById('signup-message');
-        // --- Game Screen Elements ---
+        const guestPlayButton = document.getElementById('guest-play-button');
+        // Game Screen Elements
+        const gameHeader = document.querySelector('.game-header');
+        const userInfoDisplay = document.getElementById('user-info');
+        const userInfoDisplayTopBar = document.getElementById('user-info-topbar');
+        const logoutButton = document.getElementById('logout-button');
+        const logoutButtonTopBar = document.getElementById('logout-button-topbar');
         const boardElement = document.getElementById('board');
         const statusElement = document.getElementById('status');
         const turnIndicatorElement = document.getElementById('turn-indicator');
-        const turnIndicatorText = turnIndicatorElement.querySelector('.text');
+        const turnIndicatorText = turnIndicatorElement?.querySelector('.text'); // Added null check
         const player1ScoreElement = document.getElementById('player1-score');
         const tiesScoreElement = document.getElementById('ties-score');
         const player2ScoreElement = document.getElementById('player2-score');
         const player1LabelElement = document.getElementById('player1-label');
+        const tiesLabelElement = document.getElementById('ties-label');
         const player2LabelElement = document.getElementById('player2-label');
         const resetButtons = document.querySelectorAll('#reset-button');
         const gameModeSelect = document.getElementById('game-mode');
@@ -558,130 +464,308 @@
         const PLAYER_X = 'x'; const PLAYER_O = 'o';
         let currentPlayer = PLAYER_X; let boardState = Array(9).fill(null);
         let gameActive = true; let gameMode = 'ai'; let difficulty = 'easy';
-        let scores = { x: 0, o: 0, ties: 0 }; let currentTheme = 'light';
+        let sessionScores = { x: 0, o: 0, ties: 0 };
+        let currentTheme = 'light';
+        let currentUser = null;
+        let currentUserStats = { wins: 0, losses: 0, ties: 0 };
 
         // --- Winning Combinations ---
         const winningCombinations = [ [0, 1, 2], [3, 4, 5], [6, 7, 8], [0, 3, 6], [1, 4, 7], [2, 5, 8], [0, 4, 8], [2, 4, 6] ];
 
-        // --- Supabase Client Initialization ---
-        // Using the credentials provided in the context block
-        const SUPABASE_URL = 'https://okpbcymkofvsobvppaed.supabase.co';
-        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im9rcGJjeW1rb2Z2c29idnBwYWVkIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM1MjA1NjEsImV4cCI6MjA1OTA5NjU2MX0.QJ5TK-clQXjB7ch66SiAPesUvu42JVi-x_1UTNVPV-I';
-        let supabase = null;
+        // --- Configuration (from TXT file) ---
+        const SUPABASE_URL = 'https://mrhrwgydvlnqdjnofavj.supabase.co';
+        const SUPABASE_ANON_KEY = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im1yaHJ3Z3lkdmxucWRqbm9mYXZqIiwicm9sZSI6ImFub24iLCJpYXQiOjE3NDM1ODAzNzEsImV4cCI6MjA1OTE1NjM3MX0.dt9wUC4CVu_AQtrS1McCHYjC6rYVibf7VSvxJRK3Ues';
 
+        // --- Supabase Client Initialization (Corrected) ---
+        let supabaseClient = null; // Use distinct name for the client instance
         try {
-            // Check if the URL and Key are the actual values, not placeholders
-            if (SUPABASE_URL && SUPABASE_URL !== 'YOUR_SUPABASE_URL' && SUPABASE_ANON_KEY && SUPABASE_ANON_KEY !== 'YOUR_SUPABASE_ANON_KEY') {
-                 supabase = supabaseJs.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
-                 console.log("Supabase client initialized successfully.");
-            } else {
-                 console.warn("Supabase URL and/or Key are placeholders. Signup/Login will not work. Please replace them with your actual Supabase credentials.");
-                 // Optionally disable signup form if no credentials
-                 if(signupButton) signupButton.disabled = true;
-                 if(signupForm) signupForm.addEventListener('submit', (e) => {
-                     e.preventDefault();
-                     showSignupMessage("Signup is not configured. Please provide Supabase credentials in the code.");
-                 });
-            }
+             if (!SUPABASE_URL || !SUPABASE_ANON_KEY) {
+                 throw new Error("Supabase URL or Anon Key is missing.");
+             }
+            // The global object from CDN is 'supabase'. Call its createClient method.
+            // Store the result in 'supabaseClient'.
+            supabaseClient = supabase.createClient(SUPABASE_URL, SUPABASE_ANON_KEY);
+            console.log("DEBUG: Supabase client initialized successfully using global supabase object.");
+
         } catch (error) {
-            console.error("Error initializing Supabase:", error);
-            showSignupMessage("Failed to initialize authentication service.");
+            console.error("DEBUG: Supabase initialization error:", error);
+             if (authMessage) {
+                 showAuthMessage(error.message || "Could not initialize Supabase. Check console and configuration.", true);
+             } else {
+                 alert("Could not initialize Supabase. Check console and configuration.");
+             }
+            if(loginButton) loginButton.disabled = true;
             if(signupButton) signupButton.disabled = true;
         }
 
 
-        // --- Functions ---
-
+        // --- Utility Functions ---
         function showScreen(screenToShow) {
-            console.log(`Showing screen: ${screenToShow.id}`); // Debug log
+            console.log(`DEBUG: Showing screen: ${screenToShow?.id}`);
             document.querySelectorAll('.screen').forEach(screen => screen.classList.add('hidden'));
             if (screenToShow) screenToShow.classList.remove('hidden');
+            else console.error("DEBUG: screenToShow was null or undefined");
         }
 
-        function showSignupMessage(message, isError = true) {
-            console.log(`Signup Message (${isError ? 'Error' : 'Success'}): ${message}`); // Debug log
-            signupMessageElement.textContent = message;
-            signupMessageElement.className = 'message'; // Reset class
-            signupMessageElement.classList.add(isError ? 'error' : 'success');
-            signupMessageElement.style.display = 'block';
+        function showAuthMessage(message, isError = false) {
+             if (authMessage) {
+                 console.log(`DEBUG: Auth Message (${isError ? 'Error' : 'Success'}): ${message}`);
+                 authMessage.textContent = message;
+                 authMessage.className = 'message'; // Reset class
+                 authMessage.classList.add(isError ? 'error' : 'success');
+                 authMessage.style.display = 'block';
+                 authMessage.id = 'auth-message'; // Ensure ID is correct
+             } else {
+                  console.error("DEBUG: authMessage element not found!");
+             }
+         }
+
+        function clearAuthMessages() {
+            if (authMessage) authMessage.style.display = 'none';
+            else console.warn("DEBUG: authMessage element not found when trying to clear.");
         }
 
-        async function handleSignup(event) {
-            event.preventDefault();
-            console.log("handleSignup called"); // Debug log
+        // --- Database Functions (Still commented out for focus on Auth) ---
+        async function fetchUserStats() {
+            console.log("DEBUG: fetchUserStats called (DB logic commented out)");
+            if (!currentUser) { console.log("DEBUG: No current user, cannot fetch stats."); return; }
+            currentUserStats = { wins: 0, losses: 0, ties: 0 }; // Reset local cache
+            updateScoreboard(); // Update UI with 0s
+            return;
 
-            if (!supabase) {
-                showSignupMessage("Signup service is unavailable.");
-                console.error("Supabase client not initialized."); // Debug log
-                return;
+            /* // --- Original DB Logic ---
+            if (!currentUser || !supabaseClient) return; // Use supabaseClient
+            console.log("Fetching user stats for:", currentUser.id);
+            try {
+                const { data, error, status } = await supabaseClient.from('profiles').select(`wins, losses, ties`).eq('id', currentUser.id).single(); // Use supabaseClient
+                if (error && status !== 406) throw error;
+                if (data) {
+                    console.log("Stats fetched:", data);
+                    currentUserStats = { wins: data.wins || 0, losses: data.losses || 0, ties: data.ties || 0 };
+                } else {
+                    console.log("No profile found for user, initializing stats locally.");
+                    currentUserStats = { wins: 0, losses: 0, ties: 0 };
+                    // console.log("Attempting to insert profile...");
+                    // const { error: insertError } = await supabaseClient.from('profiles').insert({ id: currentUser.id }); // Use supabaseClient
+                    // if (insertError) console.error("Error inserting profile:", insertError);
+                }
+                updateScoreboard();
+            } catch (error) {
+                console.error("Error fetching user stats:", error.message);
+                currentUserStats = { wins: 0, losses: 0, ties: 0 };
+                updateScoreboard();
             }
+            */
+        }
 
-            const email = signupEmailInput.value.trim();
-            const password = signupPasswordInput.value;
-            console.log(`Attempting signup for email: ${email}`); // Debug log
+        async function updateUserStats() {
+             console.log("DEBUG: updateUserStats called (DB logic commented out)");
+             return;
+
+            /* // --- Original DB Logic ---
+            if (!currentUser || !supabaseClient) return; // Use supabaseClient
+            console.log("Updating user stats in DB:", currentUserStats);
+            try {
+                const { error } = await supabaseClient.from('profiles').update({ wins: currentUserStats.wins, losses: currentUserStats.losses, ties: currentUserStats.ties }).eq('id', currentUser.id); // Use supabaseClient
+                if (error) throw error;
+                console.log("Stats updated successfully in DB.");
+            } catch (error) {
+                console.error("Error updating user stats:", error.message);
+            }
+            */
+        }
+
+
+        // --- Authentication Logic (Copied from TXT file, adapted selectors/client name) ---
+        async function handleLogin() {
+            console.log("DEBUG: handleLogin (from TXT) called");
+            clearAuthMessages();
+            // Use supabaseClient
+            if (!supabaseClient) return showAuthMessage("Supabase client not available.", true);
+
+            // Adapted selectors
+            if (!emailInput || !passwordInput) { console.error("DEBUG: Email or Password input not found!"); return showAuthMessage("Input field error.", true); }
+            const email = emailInput.value;
+            const password = passwordInput.value;
 
             if (!email || !password) {
-                showSignupMessage("Please enter both email and password.");
-                return;
+                return showAuthMessage("Please enter both email and password.", true);
             }
-             if (password.length < 8) {
-                 showSignupMessage("Password must be at least 8 characters long.");
+
+            try {
+                if (loginButton) loginButton.disabled = true;
+                if (signupButton) signupButton.disabled = true;
+                // Use supabaseClient
+                const { data, error } = await supabaseClient.auth.signInWithPassword({
+                    email: email,
+                    password: password,
+                });
+
+                if (error) {
+                    console.error("DEBUG: Login error:", error);
+                    showAuthMessage(error.message || "Login failed.", true);
+                } else {
+                    console.log("DEBUG: Login successful:", data);
+                    // UI update handled by onAuthStateChange
+                }
+            } catch (error) {
+                console.error("DEBUG: Unexpected login error:", error);
+                showAuthMessage("An unexpected error occurred during login.", true);
+            } finally {
+                 if (loginButton) loginButton.disabled = false;
+                 if (signupButton) signupButton.disabled = false;
+            }
+        }
+
+        async function handleSignup() {
+            console.log("DEBUG: handleSignup (from TXT) called");
+            clearAuthMessages();
+             // Use supabaseClient
+            if (!supabaseClient) return showAuthMessage("Supabase client not available.", true);
+
+            // Adapted selectors
+            if (!emailInput || !passwordInput) { console.error("DEBUG: Email or Password input not found!"); return showAuthMessage("Input field error.", true); }
+            const email = emailInput.value;
+            const password = passwordInput.value;
+
+             if (!email || !password) {
+                return showAuthMessage("Please enter both email and password.", true);
+            }
+             if (password.length < 6) { // Using 6 from TXT file
+                 return showAuthMessage("Password should be at least 6 characters.", true);
+             }
+
+            try {
+                if (loginButton) loginButton.disabled = true;
+                if (signupButton) signupButton.disabled = true;
+                 // Use supabaseClient
+                const { data, error } = await supabaseClient.auth.signUp({
+                    email: email,
+                    password: password,
+                });
+
+                if (error) {
+                     console.error("DEBUG: Signup error:", error);
+                    if (error.message.includes("User already registered")) {
+                         showAuthMessage("This email is already registered. Try logging in.", true);
+                    } else {
+                        showAuthMessage(error.message || "Sign up failed.", true);
+                    }
+                } else {
+                    console.log("DEBUG: Signup attempt result:", data);
+                    if (data.user && data.user.identities && data.user.identities.length === 0) {
+                        console.log("DEBUG: Signup requires email confirmation.");
+                        showAuthMessage("Signup successful! Please check your email to confirm your account.", false);
+                    } else if (data.session) {
+                        console.log("DEBUG: Signup successful and session created.");
+                        showAuthMessage("Signup successful! You are logged in.", false);
+                    } else {
+                        console.log("DEBUG: Signup successful, confirmation status unclear.");
+                        showAuthMessage("Signup successful! Confirmation might be required (check email).", false);
+                    }
+                }
+            } catch (error) {
+                console.error("DEBUG: Unexpected signup error:", error);
+                showAuthMessage("An unexpected error occurred during sign up.", true);
+            } finally {
+                 if (loginButton) loginButton.disabled = false;
+                 if (signupButton) signupButton.disabled = false;
+            }
+        }
+
+        async function handleLogout() {
+            console.log("DEBUG: handleLogout (from TXT) called");
+            clearAuthMessages();
+             // Use supabaseClient
+            if (!supabaseClient) return;
+
+            // Adapted selectors
+            const logoutBtn = document.getElementById('logout-button');
+            const logoutBtnTop = document.getElementById('logout-button-topbar');
+
+            try {
+                if (logoutBtn) logoutBtn.disabled = true;
+                if (logoutBtnTop) logoutBtnTop.disabled = true;
+                 // Use supabaseClient
+                const { error } = await supabaseClient.auth.signOut();
+                if (error) {
+                    console.error("DEBUG: Logout error:", error);
+                } else {
+                    console.log("DEBUG: Logout successful");
+                    // UI update handled by onAuthStateChange
+                }
+            } catch (error) {
+                 console.error("DEBUG: Unexpected logout error:", error);
+            } finally {
+                if (logoutBtn) logoutBtn.disabled = false;
+                if (logoutBtnTop) logoutBtnTop.disabled = false;
+            }
+        }
+
+        // --- Supabase Auth State Change Listener (Adapted from TXT file) ---
+        function setupAuthListener() {
+             console.log("DEBUG: Setting up Auth Listener (from TXT)...");
+              // Use supabaseClient
+             if (!supabaseClient) {
+                 console.error("DEBUG: Cannot set up auth listener: Supabase client not initialized.");
+                 showScreen(authScreen);
                  return;
              }
 
-            signupButton.disabled = true;
-            signupButton.textContent = 'Signing Up...';
-            signupMessageElement.style.display = 'none';
+             // Use supabaseClient
+             supabaseClient.auth.onAuthStateChange(async (event, session) => {
+                 console.log('DEBUG: Auth State Change Event:', event, 'Session:', session);
+                 clearAuthMessages();
 
-            try {
-                console.log("Calling supabase.auth.signUp..."); // Debug log
-                const { data, error } = await supabase.auth.signUp({ email, password });
-                console.log("Supabase signUp response received."); // Debug log
+                 currentUser = session?.user ?? null;
 
-                if (error) {
-                    console.error('Supabase Signup Error:', error); // Log the full error
-                    showSignupMessage(error.message || "An error occurred during signup.");
-                } else if (data.user) {
-                    console.log('Supabase Signup Success:', data); // Log success data
+                 // Selectors adapted for Tic-Tac-Toe UI
+                 const authScreenElement = document.getElementById('auth-screen');
+                 const gameScreenElement = document.getElementById('game-screen');
+                 const userInfoElement = document.getElementById('user-info');
+                 const userInfoTopBarElement = document.getElementById('user-info-topbar');
+                 const emailInputElement = document.getElementById('auth-email');
+                 const passwordInputElement = document.getElementById('auth-password');
 
-                    // Check if email confirmation is required (user exists but session is null)
-                    if (data.user && !data.session) {
-                         console.log("Signup successful, but email confirmation might be required.");
-                         showSignupMessage("Signup successful! Please check your email to confirm your account, then log in.", false);
-                         // Don't proceed directly to game, maybe show login link or stay here
-                         // For now, we'll just leave the message. A real app needs a login flow.
-                    } else {
-                         // User created and session likely exists (or email confirmation not required)
-                         showSignupMessage("Signup successful! Starting game...", false);
-                         setTimeout(() => {
-                              console.log("Proceeding to game screen after signup."); // Debug log
-                              showScreen(gameScreen);
-                              resetGame();
-                         }, 1500);
-                    }
-
-                } else {
-                     // This case might indicate an issue if data.user is null without an error
-                     console.warn("Supabase signup returned no user and no error.", data);
-                     showSignupMessage("An unexpected issue occurred during signup. Please try again.");
-                }
-
-            } catch (error) {
-                console.error('Unexpected Error in handleSignup:', error); // Log unexpected errors
-                showSignupMessage("An unexpected error occurred. Please try again.");
-            } finally {
-                // Re-enable button only if we are still on the signup screen
-                if (!gameScreen.classList.contains('hidden')) {
-                    // Already navigated away
-                } else {
-                     signupButton.disabled = false;
-                     signupButton.textContent = 'Create Account';
-                }
-            }
-        }
+                 // Ensure elements exist before manipulating
+                 if (!authScreenElement || !gameScreenElement || !userInfoElement || !userInfoTopBarElement || !emailInputElement || !passwordInputElement) {
+                     console.error("DEBUG: One or more critical UI elements not found in onAuthStateChange. Aborting UI update.");
+                     return;
+                 }
 
 
-        // --- Game Logic Functions (Unchanged) ---
+                 if (event === 'SIGNED_IN' && session && session.user) {
+                     console.log('DEBUG: Event SIGNED_IN - User signed in:', session.user.email);
+                     authScreenElement.classList.add('hidden');
+                     gameScreenElement.classList.remove('hidden');
+                     gameScreenElement.classList.add('logged-in');
+                     userInfoElement.textContent = session.user.email;
+                     userInfoTopBarElement.textContent = session.user.email;
+
+                     await fetchUserStats(); // Fetch stats (currently logs only)
+                     updatePlayerLabels();
+                     resetGame();
+
+                 } else if (event === 'SIGNED_OUT') {
+                      console.log('DEBUG: Event SIGNED_OUT - User signed out.');
+                      authScreenElement.classList.remove('hidden');
+                      gameScreenElement.classList.add('hidden');
+                      gameScreenElement.classList.remove('logged-in');
+                      userInfoElement.textContent = '';
+                      userInfoTopBarElement.textContent = '';
+                      emailInputElement.value = '';
+                      passwordInputElement.value = '';
+
+                      currentUserStats = { wins: 0, losses: 0, ties: 0 };
+                      sessionScores = { x: 0, o: 0, ties: 0 };
+                      updatePlayerLabels();
+                      updateScoreboard();
+                 }
+             });
+              console.log("DEBUG: Auth state change listener (from TXT) set up.");
+         }
+
+        // --- Game Logic Functions (Unchanged from previous step) ---
         function createBoard() { /* ... */
              let winLine = boardElement.querySelector('.win-line'); if (!winLine) { winLine = document.createElement('div'); winLine.classList.add('win-line'); winLine.id = 'win-line'; } winLine.style.display = 'none'; boardElement.innerHTML = ''; boardElement.appendChild(winLine);
              for (let i = 0; i < 9; i++) { const cell = document.createElement('div'); cell.classList.add('cell'); cell.dataset.index = i; cell.addEventListener('click', handleCellClick); boardElement.appendChild(cell); }
@@ -695,21 +779,31 @@
         function switchPlayer() { /* ... */ currentPlayer = currentPlayer === PLAYER_X ? PLAYER_O : PLAYER_X; updateStatus(); }
         function updateStatus(overrideMessage = null) { /* ... */
             let message = ''; let turnText = ''; if (overrideMessage) { message = overrideMessage; turnText = message; } else if (!gameActive) { return; } else { let playerName = gameMode === '1v1' ? `Player ${currentPlayer.toUpperCase()}` : (currentPlayer === PLAYER_X ? 'Your (X)' : 'Computer (O)'); message = `${playerName}'s Turn`; turnText = `${currentPlayer.toUpperCase()} TURN`; } statusElement.textContent = message;
-            if (turnIndicatorElement) { turnIndicatorText.textContent = turnText; turnIndicatorElement.className = 'turn-indicator'; if (message.includes('Turn')) turnIndicatorElement.classList.add(`${currentPlayer}-turn`); } }
+            if (turnIndicatorElement && turnIndicatorText) { turnIndicatorText.textContent = turnText; turnIndicatorElement.className = 'turn-indicator'; if (message.includes('Turn')) turnIndicatorElement.classList.add(`${currentPlayer}-turn`); } }
         function checkWin(player) { /* ... */ return winningCombinations.find(combination => combination.every(index => boardState[index] === player)); }
         function drawWinningLine(combination) { /* ... */
              const startCell = boardElement.querySelector(`.cell[data-index='${combination[0]}']`); const endCell = boardElement.querySelector(`.cell[data-index='${combination[2]}']`); if (!startCell || !endCell || !winLineElement) return; winLineElement.style.display = 'block'; const startX = startCell.offsetLeft + startCell.offsetWidth / 2; const startY = startCell.offsetTop + startCell.offsetHeight / 2; const endX = endCell.offsetLeft + endCell.offsetWidth / 2; const endY = endCell.offsetTop + endCell.offsetHeight / 2; const deltaX = endX - startX; const deltaY = endY - startY; const length = Math.sqrt(deltaX * deltaX + deltaY * deltaY) ; const angle = Math.atan2(deltaY, deltaX) * (180 / Math.PI); winLineElement.style.width = `${length}px`; winLineElement.style.top = `${startY - winLineElement.offsetHeight / 2}px`; winLineElement.style.left = `${startX}px`; winLineElement.style.transform = `rotate(${angle}deg)`; winLineElement.style.transformOrigin = '0% 50%'; winLineElement.style.animation = 'none'; void winLineElement.offsetWidth; winLineElement.style.animation = 'drawLine 0.6s ease-out forwards'; }
-        function endGame(draw, winner = null) { /* ... */
-            gameActive = false; boardElement.style.pointerEvents = 'none'; let finalMessage = ''; if (draw) { finalMessage = "It's a Draw!"; scores.ties++; triggerScoreUpdate(tiesScoreElement.parentElement); } else if (winner) { finalMessage = `Player ${winner.toUpperCase()} Wins!`; scores[winner]++; if(winner === PLAYER_X) triggerScoreUpdate(player1ScoreElement.parentElement); else triggerScoreUpdate(player2ScoreElement.parentElement); winningCombinations.forEach(combination => { if (combination.every(index => boardState[index] === winner)) { combination.forEach(index => { const cell = boardElement.querySelector(`.cell[data-index='${index}']`); if(cell) cell.style.filter = 'brightness(0.8)'; }); } }); } updateStatus(finalMessage); updateScoreboard(); }
+        function endGame(draw, winner = null) { /* ... (DB call still commented out) ... */
+            if (!gameActive) return; gameActive = false; boardElement.style.pointerEvents = 'none'; let finalMessage = ''; let statsChanged = false;
+            if (draw) { finalMessage = "It's a Draw!"; if (currentUser) { currentUserStats.ties++; statsChanged = true; } else { sessionScores.ties++; } triggerScoreUpdate(tiesScoreElement.parentElement);
+            } else if (winner) { finalMessage = `Player ${winner.toUpperCase()} Wins!`; if (currentUser) { if (winner === PLAYER_X) currentUserStats.wins++; else currentUserStats.losses++; statsChanged = true; } else { if (winner === PLAYER_X) sessionScores.x++; else sessionScores.o++; } if(winner === PLAYER_X) triggerScoreUpdate(player1ScoreElement.parentElement); else triggerScoreUpdate(player2ScoreElement.parentElement); winningCombinations.forEach(combination => { if (combination.every(index => boardState[index] === winner)) { combination.forEach(index => { const cell = boardElement.querySelector(`.cell[data-index='${index}']`); if(cell) cell.style.filter = 'brightness(0.8)'; }); } }); }
+            updateStatus(finalMessage); updateScoreboard(); if (currentUser && statsChanged) { updateUserStats(); } }
         function triggerScoreUpdate(scoreBoxElement) { /* ... */ if (!scoreBoxElement) return; const span = scoreBoxElement.querySelector('span'); if (!span) return; span.classList.add('updated'); span.addEventListener('animationend', () => span.classList.remove('updated'), { once: true }); }
-        function updateScoreboard() { /* ... */ player1ScoreElement.textContent = scores.x; tiesScoreElement.textContent = scores.ties; player2ScoreElement.textContent = scores.o; }
+        function updateScoreboard() { /* ... */
+            if (!player1ScoreElement || !tiesScoreElement || !player2ScoreElement) { console.error("DEBUG: Scoreboard elements not found!"); return; }
+            if (currentUser) { player1ScoreElement.textContent = currentUserStats.wins; tiesScoreElement.textContent = currentUserStats.ties; player2ScoreElement.textContent = currentUserStats.losses; }
+            else { player1ScoreElement.textContent = sessionScores.x; tiesScoreElement.textContent = sessionScores.ties; player2ScoreElement.textContent = sessionScores.o; } }
         function resetGame() { /* ... */
-            currentPlayer = PLAYER_X; boardState = Array(9).fill(null); gameActive = true; if(winLineElement) winLineElement.style.display = 'none'; boardElement.style.pointerEvents = 'auto'; const cells = boardElement.querySelectorAll('.cell'); cells.forEach(cell => { cell.classList.remove(PLAYER_X, PLAYER_O, 'occupied'); cell.style.filter = 'none'; }); updateStatus(); updateScoreboard(); updatePlayerLabels();
-             if (!gameScreen.classList.contains('hidden')) { document.querySelectorAll('#game-screen .settings, #game-screen .board, #game-screen .scoreboard, #game-screen #reset-button.main-reset, #game-screen .top-bar').forEach(el => { if (window.getComputedStyle(el).display !== 'none') { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; } }); document.querySelectorAll('#game-screen .score').forEach((el, index) => { el.style.animation = 'none'; void el.offsetWidth; el.style.setProperty('--index', index); el.style.animation = 'scoreAppear 0.3s ease forwards'; el.style.animationDelay = `calc(var(--index) * 0.1s + 0.3s)`; }); } }
-        function updatePlayerLabels() { /* ... */ player1LabelElement.textContent = gameMode === 'ai' ? "X (YOU)" : "Player X"; player2LabelElement.textContent = gameMode === 'ai' ? "O (CPU)" : "Player O"; }
-        function handleModeChange() { /* ... */ gameMode = gameModeSelect.value; difficultyGroup.style.display = gameMode === 'ai' ? 'flex' : 'none'; if (gameMode === 'ai') difficulty = difficultySelect.value; scores = { x: 0, o: 0, ties: 0 }; resetGame(); }
-        function handleDifficultyChange() { /* ... */ difficulty = difficultySelect.value; }
-        function handleThemeChange(theme) { /* ... */ currentTheme = theme; bodyElement.dataset.theme = theme; themeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.theme === theme)); localStorage.setItem('ticTacToeTheme', theme); }
+            console.log("DEBUG: resetGame called"); currentPlayer = PLAYER_X; boardState = Array(9).fill(null); gameActive = true; if(winLineElement) winLineElement.style.display = 'none'; if(boardElement) boardElement.style.pointerEvents = 'auto'; else { console.error("DEBUG: boardElement not found in resetGame"); return; } const cells = boardElement.querySelectorAll('.cell'); cells.forEach(cell => { cell.classList.remove(PLAYER_X, PLAYER_O, 'occupied'); cell.style.filter = 'none'; });
+            updateStatus(); updateScoreboard(); updatePlayerLabels();
+             if (gameScreen && !gameScreen.classList.contains('hidden')) { document.querySelectorAll('#game-screen .settings, #game-screen .board, #game-screen .scoreboard, #game-screen #reset-button.main-reset, #game-screen .top-bar, #game-screen .game-header').forEach(el => { if (window.getComputedStyle(el).display !== 'none') { el.style.animation = 'none'; void el.offsetWidth; el.style.animation = ''; } }); document.querySelectorAll('#game-screen .score').forEach((el, index) => { el.style.animation = 'none'; void el.offsetWidth; el.style.setProperty('--index', index); el.style.animation = 'scoreAppear 0.3s ease forwards'; el.style.animationDelay = `calc(var(--index) * 0.1s + 0.3s)`; }); } }
+        function updatePlayerLabels() { /* ... */
+             if (!player1LabelElement || !tiesLabelElement || !player2LabelElement) { console.error("DEBUG: Scoreboard label elements not found!"); return; }
+            if (currentUser) { player1LabelElement.textContent = "Your Wins"; tiesLabelElement.textContent = "Ties"; player2LabelElement.textContent = gameMode === 'ai' ? "CPU Wins" : "P2 Wins"; }
+            else { player1LabelElement.textContent = gameMode === 'ai' ? "X (YOU)" : "Player X"; tiesLabelElement.textContent = "Ties"; player2LabelElement.textContent = gameMode === 'ai' ? "O (CPU)" : "Player O"; } }
+        function handleModeChange() { /* ... */ if (!gameModeSelect || !difficultyGroup) return; gameMode = gameModeSelect.value; difficultyGroup.style.display = gameMode === 'ai' ? 'flex' : 'none'; if (gameMode === 'ai') difficulty = difficultySelect.value; resetGame(); }
+        function handleDifficultyChange() { /* ... */ if (!difficultySelect) return; difficulty = difficultySelect.value; }
+        function handleThemeChange(theme) { /* ... */ if (!bodyElement || !themeButtons) return; currentTheme = theme; bodyElement.dataset.theme = theme; themeButtons.forEach(btn => btn.classList.toggle('active', btn.dataset.theme === theme)); localStorage.setItem('ticTacToeTheme', theme); }
         // --- AI Logic (Unchanged) ---
         function aiMove(){if(!gameActive||currentPlayer!==PLAYER_O)return;let bestMove;switch(difficulty){case'easy':bestMove=getRandomMove();break;case'medium':bestMove=getMediumMove();break;case'hard':bestMove=findBestMove();break;default:bestMove=getRandomMove();}if(bestMove!==undefined)makeMove(bestMove,PLAYER_O);else updateStatus();}
         function getRandomMove(){const available=boardState.map((c,i)=>(c===null?i:null)).filter(i=>i!==null);return available.length>0?available[Math.floor(Math.random()*available.length)]:undefined;}
@@ -719,53 +813,116 @@
         function minimax(currentBoard,depth,isMaximizing){const winnerX=checkWin(PLAYER_X);if(winnerX)return scoresMinimax[PLAYER_X]+depth;const winnerO=checkWin(PLAYER_O);if(winnerO)return scoresMinimax[PLAYER_O]-depth;if(currentBoard.every(cell=>cell!==null))return scoresMinimax.tie;let bestScore=isMaximizing?-Infinity:Infinity;const player=isMaximizing?PLAYER_O:PLAYER_X;for(let i=0;i<9;i++){if(currentBoard[i]===null){currentBoard[i]=player;let score=minimax(currentBoard,depth+1,!isMaximizing);currentBoard[i]=null;bestScore=isMaximizing?Math.max(score,bestScore):Math.min(score,bestScore);}}return bestScore;}
 
 
-        // --- Event Listeners ---
-        playButton.addEventListener('click', () => {
-            console.log("Play button clicked"); // Debug log
-            showScreen(signupScreen);
-            signupMessageElement.style.display = 'none';
-            signupEmailInput.value = '';
-            signupPasswordInput.value = '';
-        });
+        // --- Event Listeners Setup ---
+        function setupEventListeners() {
+            console.log("DEBUG: Setting up event listeners...");
 
-        // Listener for the new guest button
-        if (guestPlayButton) {
-             guestPlayButton.addEventListener('click', () => {
-                 console.log("Guest Play button clicked"); // Debug log
-                 showScreen(gameScreen);
-                 resetGame(); // Start fresh game as guest
+            if (playButton) {
+                playButton.addEventListener('click', () => {
+                    console.log("DEBUG: Play button clicked");
+                    showScreen(authScreen);
+                    clearAuthMessages();
+                    if (emailInput) emailInput.value = '';
+                    if (passwordInput) passwordInput.value = '';
+                });
+            } else console.error("DEBUG: Play button not found!");
+
+            if (guestPlayButton) {
+                 guestPlayButton.addEventListener('click', () => {
+                     console.log("DEBUG: Guest Play button clicked");
+                     currentUser = null;
+                     if(gameScreen) gameScreen.classList.remove('logged-in');
+                     sessionScores = { x: 0, o: 0, ties: 0 };
+                     updatePlayerLabels();
+                     updateScoreboard();
+                     showScreen(gameScreen);
+                     resetGame();
+                 });
+            } else console.error("DEBUG: Guest play button not found!");
+
+            if (loginButton) loginButton.addEventListener('click', handleLogin);
+            else console.error("DEBUG: Login button not found!");
+
+            if (signupButton) signupButton.addEventListener('click', handleSignup);
+            else console.error("DEBUG: Signup button not found!");
+
+            if (logoutButton) logoutButton.addEventListener('click', handleLogout);
+            else console.error("DEBUG: Logout button not found!");
+
+            if (logoutButtonTopBar) logoutButtonTopBar.addEventListener('click', handleLogout);
+            else console.error("DEBUG: Top bar logout button not found!");
+
+
+            resetButtons.forEach((button, index) => {
+                if (button) button.addEventListener('click', resetGame);
+                else console.error(`DEBUG: Reset button at index ${index} not found!`);
+            });
+
+            if (gameModeSelect) gameModeSelect.addEventListener('change', handleModeChange);
+            else console.error("DEBUG: Game mode select not found!");
+
+            if (difficultySelect) difficultySelect.addEventListener('change', handleDifficultyChange);
+            else console.error("DEBUG: Difficulty select not found!");
+
+            themeButtons.forEach((button, index) => {
+                if (button) button.addEventListener('click', () => handleThemeChange(button.dataset.theme));
+                else console.error(`DEBUG: Theme button at index ${index} not found!`);
+            });
+             console.log("DEBUG: Event listeners setup complete.");
+        }
+
+
+        // --- Initialization (Adapted from TXT file) ---
+        async function initializeApp() {
+             console.log("DEBUG: Initializing app (using TXT logic)...");
+             const savedTheme = localStorage.getItem('ticTacToeTheme') || 'light';
+             handleThemeChange(savedTheme);
+             createBoard();
+
+             if (!supabaseClient) { // Check the correct variable name
+                  console.error("DEBUG: Initialization failed: Supabase client not available.");
+                  showScreen(authScreen);
+                  return;
+             }
+
+              try {
+                 console.log("DEBUG: Checking initial session...");
+                 // Use supabaseClient
+                 const { data: { session }, error } = await supabaseClient.auth.getSession();
+                  console.log("DEBUG: Initial session check complete. Session:", session);
+
+                  if (error) {
+                     console.error("DEBUG: Error getting initial session:", error);
+                     showAuthMessage("Error checking session: " + error.message, true);
+                     showScreen(authScreen);
+                 } else if (session && session.user) {
+                     console.log("DEBUG: User initially logged in:", session.user.email);
+                     // Listener will handle showing gameScreen
+                 } else {
+                     console.log("DEBUG: User initially logged out.");
+                     showScreen(homeScreen); // Start on home screen if logged out
+                 }
+             } catch (err) {
+                  console.error("DEBUG: Unexpected error during initial auth check:", err);
+                  showAuthMessage("Initialization error. Check console.", true);
+                  showScreen(authScreen);
+             } finally {
+                  setupEventListeners();
+                  setupAuthListener(); // This will trigger based on the initial state checked above
+                  console.log("DEBUG: App initialization complete.");
+             }
+
+             updatePlayerLabels();
+             handleModeChange();
+
+             document.querySelectorAll('.score').forEach((el, index) => {
+                 el.style.setProperty('--index', index);
              });
-        } else {
-             console.error("Guest play button not found!");
-        }
+         }
 
 
-        if (signupForm) {
-            signupForm.addEventListener('submit', handleSignup);
-        } else {
-            console.error("Signup form not found!");
-        }
-
-
-        resetButtons.forEach(button => button.addEventListener('click', resetGame));
-        gameModeSelect.addEventListener('change', handleModeChange);
-        difficultySelect.addEventListener('change', handleDifficultyChange);
-        themeButtons.forEach(button => {
-            button.addEventListener('click', () => handleThemeChange(button.dataset.theme));
-        });
-
-        // --- Initial Setup ---
-        const savedTheme = localStorage.getItem('ticTacToeTheme') || 'light';
-        handleThemeChange(savedTheme);
-        createBoard();
-        updatePlayerLabels();
-        handleModeChange();
-        showScreen(homeScreen); // Start on the home screen
-
-        // Initial score animation setup
-        document.querySelectorAll('.score').forEach((el, index) => {
-            el.style.setProperty('--index', index);
-        });
+        // --- Run Initialization on DOMContentLoaded ---
+        document.addEventListener('DOMContentLoaded', initializeApp);
 
     </script>
 </body>
